@@ -2016,7 +2016,7 @@ async function loadLeaderboard() {
   try {
     const res = await fetch(
       `${SB_URL}/rest/v1/${SB_TABLE}?select=username,grade,return_pct,mode&order=return_pct.desc&limit=10`,
-      { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
+      { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Cache-Control': 'no-cache' } }
     );
     if (!res.ok) throw new Error('lb fetch failed');
     const rows = await res.json();
@@ -2047,7 +2047,7 @@ async function loadSetupLeaderboard() {
   try {
     const res = await fetch(
       `${SB_URL}/rest/v1/${SB_TABLE}?select=username,grade,return_pct,mode&order=return_pct.desc&limit=5`,
-      { headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`} }
+      { headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Cache-Control':'no-cache'} }
     );
     if (!res.ok) throw 0;
     const rows = await res.json();
