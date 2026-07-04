@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Local files not for the repo
+time_series.json
+chart-master_v17.html
+.claude/
+
+# Secrets
+.env
+*.key

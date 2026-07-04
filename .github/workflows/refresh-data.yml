@@ -1,0 +1,53 @@
+name: Refresh ticker data
+
+on:
+  schedule:
+    # 2 AM UTC on the 1st of every month
+    - cron: '0 2 1 * *'
+  workflow_dispatch:
+    inputs:
+      resume:
+        description: 'Skip tickers already fetched today (--resume)'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write   # needed to commit data/ back to the repo
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35   # 120 tickers × 8s + buffer
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch ticker data
+        run: |
+          FLAGS=""
+          if [ "${{ inputs.resume }}" = "true" ]; then
+            FLAGS="--resume"
+          fi
+          python fetch_data.py $FLAGS
+        env:
+          TWELVE_DATA_KEY: ${{ secrets.TWELVE_DATA_KEY }}
+
+      - name: Commit and push updated data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore: refresh ticker data $(date -u +%Y-%m-%d)"
+            git push
+          fi
