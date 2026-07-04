@@ -6,10 +6,10 @@
 <title>Chart Master</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#0d1117;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;overflow:hidden;display:flex;flex-direction:column}
+html,body{height:100%;background:#141b24;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;overflow:hidden;display:flex;flex-direction:column}
 
 /* ─── HEADER ─────────────────────────────── */
-#hdr{height:42px;min-height:42px;display:none;align-items:center;gap:10px;padding:0 12px;background:#161b22;border-bottom:1px solid #30363d;flex-shrink:0}
+#hdr{height:42px;min-height:42px;display:none;align-items:center;gap:10px;padding:0 12px;background:#1d2431;border-bottom:1px solid #30363d;flex-shrink:0}
 .logo{font-size:14px;font-weight:700;color:#58a6ff;letter-spacing:.5px;white-space:nowrap}
 .hdr-mid{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;color:#8b949e}
 .pill{background:#1f6feb;color:#fff;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:700;font-family:monospace}
@@ -19,17 +19,17 @@ html,body{height:100%;background:#0d1117;color:#e6edf3;font-family:'Segoe UI',sy
 
 /* ─── 4-CHART GRID ──────────────────────── */
 #charts{display:none;flex:1;min-height:0;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1px;background:#30363d}
-.ccell{position:relative;background:#0d1117;cursor:pointer;overflow:hidden;transition:box-shadow .15s}
+.ccell{position:relative;background:#141b24;cursor:pointer;overflow:hidden;transition:box-shadow .15s}
 .ccell.active-A{box-shadow:inset 0 0 0 2px #58a6ff}
 .ccell.active-B{box-shadow:inset 0 0 0 2px #bc8cff}
 .ccell.active-C{box-shadow:inset 0 0 0 2px #ff9f43}
 .ccell.active-D{box-shadow:inset 0 0 0 2px #26de81}
 canvas{display:block;width:100%;height:100%}
 .clabel{position:absolute;top:5px;left:7px;font-size:10px;font-weight:700;letter-spacing:.8px;pointer-events:none;text-shadow:0 1px 3px #000;z-index:2}
-.cohlc{position:absolute;top:5px;right:7px;font-size:9px;font-family:monospace;color:#8b949e;pointer-events:none;background:rgba(13,17,23,.88);padding:2px 6px;border-radius:2px;white-space:nowrap;display:none;z-index:2}
+.cohlc{position:absolute;top:5px;right:7px;font-size:9px;font-family:monospace;color:#8b949e;pointer-events:none;background:rgba(20,27,36,.88);padding:2px 6px;border-radius:2px;white-space:nowrap;display:none;z-index:2}
 
 /* position badge */
-.cpos-badge{position:absolute;bottom:0;left:0;right:0;display:none;align-items:center;justify-content:space-between;padding:4px 8px;font-size:10px;font-family:monospace;font-weight:600;background:rgba(13,17,23,.88);border-top:1px solid #30363d;pointer-events:none;z-index:2;gap:6px}
+.cpos-badge{position:absolute;bottom:0;left:0;right:0;display:none;align-items:center;justify-content:space-between;padding:4px 8px;font-size:10px;font-family:monospace;font-weight:600;background:rgba(20,27,36,.88);border-top:1px solid #30363d;pointer-events:none;z-index:2;gap:6px}
 .cpos-badge.pos-long{border-top-color:#3fb950}
 .cpos-badge.pos-short{border-top-color:#f85149}
 .cpos-left{display:flex;flex-direction:column;gap:1px}
@@ -38,7 +38,7 @@ canvas{display:block;width:100%;height:100%}
 .cpos-pnl{font-size:10px;font-weight:700;text-align:right}
 
 /* ─── CONTROLS BAR ──────────────────────── */
-#cbar{display:none;align-items:center;gap:7px;padding:4px 12px;background:#161b22;border-top:1px solid #30363d;flex-shrink:0;min-height:36px}
+#cbar{display:none;align-items:center;gap:7px;padding:4px 12px;background:#1d2431;border-top:1px solid #30363d;flex-shrink:0;min-height:36px}
 .slbl{font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
 .sb{background:none;border:1px solid #30363d;border-radius:3px;padding:2px 8px;color:#8b949e;cursor:pointer;font-size:11px;font-family:monospace}
 .sb.s20{border-color:#f0c040;color:#f0c040}.sb.s50{border-color:#4090f0;color:#4090f0}.sb.s200{border-color:#f040a0;color:#f040a0}
@@ -47,16 +47,16 @@ canvas{display:block;width:100%;height:100%}
 #pgw{flex:1;height:5px;background:#30363d;border-radius:3px;overflow:hidden;min-width:60px;position:relative}
 #pgp{height:100%;background:#3fb950;border-radius:3px;width:0%;transition:width .2s}
 .cbtn{background:none;border:1px solid #30363d;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:11px;font-weight:600;color:#e6edf3;white-space:nowrap}
-.cbtn:hover{background:#1c2128}
+.cbtn:hover{background:#232b38}
 #pbtn{background:#58a6ff;color:#000;border-color:#58a6ff}
 #pbtn:hover{opacity:.85}
-.spd-cyc{background:none;border:1px solid #30363d;border-radius:3px;padding:3px 9px;color:#8b949e;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap}
+.spd-cyc{background:none;border:1px solid #30363d;border-radius:4px;padding:3px 10px;color:#e6edf3;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;min-width:34px;text-align:center}
 .spd-cyc:hover{border-color:#58a6ff;color:#58a6ff}
 .spd-cyc.fast{border-color:#e3b341;color:#e3b341}
 .spd-cyc.vfast{border-color:#f85149;color:#f85149}
 
 /* ─── PORTFOLIO BAR ─────────────────────── */
-#pbar{display:none;align-items:center;height:42px;padding:0 12px;background:#161b22;border-top:1px solid #30363d;flex-shrink:0}
+#pbar{display:none;align-items:center;height:42px;padding:0 12px;background:#1d2431;border-top:1px solid #30363d;flex-shrink:0}
 .pi{display:flex;flex-direction:column;padding:0 12px;border-right:1px solid #30363d}
 .pi:first-child{padding-left:0}.pi:last-child{border-right:none;margin-left:auto;text-align:right}
 .plb{font-size:9px;color:#8b949e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:1px}
@@ -64,11 +64,11 @@ canvas{display:block;width:100%;height:100%}
 .g{color:#3fb950}.r{color:#f85149}
 
 /* ─── ALLOC BAR ─────────────────────────── */
-#allocbar-wrap{display:none;padding:3px 12px 4px;background:#161b22;border-top:1px solid #1c2128;flex-shrink:0}
-#allocbar{display:flex;height:6px;border-radius:4px;overflow:hidden;background:#1c2128}
+#allocbar-wrap{display:none;padding:3px 12px 4px;background:#1d2431;border-top:1px solid #232b38;flex-shrink:0}
+#allocbar{display:flex;height:6px;border-radius:4px;overflow:hidden;background:#232b38}
 
 /* ─── TRADE BAR ─────────────────────────── */
-#tbar{display:none;align-items:center;gap:7px;padding:4px 12px;background:#161b22;border-top:1px solid #30363d;flex-shrink:0;min-height:38px}
+#tbar{display:none;align-items:center;gap:7px;padding:4px 12px;background:#1d2431;border-top:1px solid #30363d;flex-shrink:0;min-height:38px}
 .stockbtn{border:1px solid #30363d;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:11px;font-weight:700;background:none;color:#8b949e;letter-spacing:.5px;transition:all .1s}
 .stockbtn.sel-A{border-color:#58a6ff;color:#58a6ff;background:rgba(88,166,255,.1)}
 .stockbtn.sel-B{border-color:#bc8cff;color:#bc8cff;background:rgba(188,140,255,.1)}
@@ -76,35 +76,35 @@ canvas{display:block;width:100%;height:100%}
 .stockbtn.sel-D{border-color:#26de81;color:#26de81;background:rgba(38,222,129,.1)}
 .cp{font-family:monospace;font-size:13px;font-weight:700;color:#e3b341;min-width:56px}
 .cp-note{font-size:9px;color:#8b949e}
-.qi{background:#0d1117;border:1px solid #30363d;border-radius:4px;padding:3px 7px;color:#e6edf3;font-family:monospace;width:70px;font-size:12px;text-align:center}
+.qi{background:#141b24;border:1px solid #30363d;border-radius:4px;padding:3px 7px;color:#e6edf3;font-family:monospace;width:70px;font-size:12px;text-align:center}
 .qi:focus{outline:none;border-color:#58a6ff}
-.qp{background:#1c2128;border:1px solid #30363d;border-radius:3px;padding:2px 7px;color:#8b949e;cursor:pointer;font-size:10px}
+.qp{background:#232b38;border:1px solid #30363d;border-radius:3px;padding:2px 7px;color:#8b949e;cursor:pointer;font-size:10px}
 .qp:hover{color:#e6edf3}
-.qpct{background:#1c2128;border:1px solid #e3b341;border-radius:3px;padding:2px 7px;color:#e3b341;cursor:pointer;font-size:10px;font-weight:600}
+.qpct{background:#232b38;border:1px solid #e3b341;border-radius:3px;padding:2px 7px;color:#e3b341;cursor:pointer;font-size:10px;font-weight:600}
 .qpct:hover{background:#2a2510;color:#f0c040}
 .tb{border:none;border-radius:4px;padding:5px 16px;font-weight:700;cursor:pointer;font-size:11px}
 .tb:hover{opacity:.85}.tb:disabled{opacity:.3;cursor:not-allowed}
 .buy{background:#3fb950;color:#000}.sell{background:#f85149;color:#fff}
 
 /* ─── TRADE LOG ─────────────────────────── */
-#tlog{display:none;align-items:center;gap:5px;padding:2px 12px;background:#0d1117;border-top:1px solid #30363d;flex-shrink:0;min-height:26px;overflow-x:auto}
+#tlog{display:none;align-items:center;gap:5px;padding:2px 12px;background:#141b24;border-top:1px solid #30363d;flex-shrink:0;min-height:26px;overflow-x:auto}
 .lhd{font-size:9px;color:#8b949e;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;flex-shrink:0}
-.le{background:#161b22;border:1px solid #30363d;border-radius:3px;padding:1px 7px;font-family:monospace;font-size:9px;white-space:nowrap;flex-shrink:0}
+.le{background:#1d2431;border:1px solid #30363d;border-radius:3px;padding:1px 7px;font-family:monospace;font-size:9px;white-space:nowrap;flex-shrink:0}
 
 /* ─── TAP-TO-ZOOM ───────────────────────── */
 #charts.zoomed{grid-template-columns:1fr!important;grid-template-rows:1fr!important}
 #charts.zoomed .ccell{display:none!important}
 #charts.zoomed .ccell.zoom-active{display:block!important}
-.zoom-hint{position:absolute;bottom:28px;right:7px;font-size:8px;color:#8b949e;pointer-events:none;background:rgba(13,17,23,.7);padding:1px 5px;border-radius:2px;z-index:3;white-space:nowrap}
+.zoom-hint{position:absolute;bottom:28px;right:7px;font-size:8px;color:#8b949e;pointer-events:none;background:rgba(20,27,36,.7);padding:1px 5px;border-radius:2px;z-index:3;white-space:nowrap}
 
 /* ─── SETUP SCREEN ──────────────────────── */
-#setup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0d1117;z-index:20;overflow-y:auto;padding:12px 0}
-.sc{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:28px 28px 24px;text-align:center;max-width:480px;width:92%;margin:auto}
+#setup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#141b24;z-index:20;overflow-y:auto;padding:12px 0}
+.sc{background:#1d2431;border:1px solid #30363d;border-radius:12px;padding:28px 28px 24px;text-align:center;max-width:480px;width:92%;margin:auto}
 .sl{font-size:32px;font-weight:700;color:#58a6ff;margin-bottom:4px}
 .ss{color:#8b949e;font-size:13px;margin-bottom:16px}
 
 /* Stats bar (streak / best / games) */
-.stats-bar{display:flex;gap:0;background:#0d1117;border:1px solid #30363d;border-radius:8px;margin-bottom:16px;overflow:hidden}
+.stats-bar{display:flex;gap:0;background:#141b24;border:1px solid #30363d;border-radius:8px;margin-bottom:16px;overflow:hidden}
 .stat-cell{flex:1;padding:8px 6px;text-align:center;border-right:1px solid #30363d}
 .stat-cell:last-child{border-right:none}
 .stat-lbl{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
@@ -113,7 +113,7 @@ canvas{display:block;width:100%;height:100%}
 /* Daily challenge button */
 .daily-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,rgba(38,222,129,.12),rgba(88,166,255,.08));border:1px solid #26de81;border-radius:8px;padding:12px 16px;cursor:pointer;margin-bottom:14px;transition:all .15s;width:100%;text-align:left}
 .daily-btn:hover{background:linear-gradient(135deg,rgba(38,222,129,.2),rgba(88,166,255,.14));border-color:#3dffa0}
-.daily-btn.done{border-color:#30363d;background:#0d1117;cursor:default;opacity:.7}
+.daily-btn.done{border-color:#30363d;background:#141b24;cursor:default;opacity:.7}
 .daily-icon{font-size:20px;flex-shrink:0}
 .daily-title{font-size:13px;font-weight:700;color:#26de81}
 .daily-desc{font-size:11px;color:#8b949e;margin-top:1px}
@@ -121,7 +121,7 @@ canvas{display:block;width:100%;height:100%}
 
 .mode-label{font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;text-align:left}
 .mode-cards{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
-.mode-card{background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:border-color .15s,background .15s}
+.mode-card{background:#232b38;border:1px solid #30363d;border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:border-color .15s,background .15s}
 .mode-card:hover{border-color:#58a6ff;background:rgba(88,166,255,.06)}
 .mode-icon{font-size:17px;min-width:24px;text-align:center}
 .mode-title{font-size:12px;font-weight:700;color:#e6edf3;margin-bottom:1px}
@@ -129,18 +129,18 @@ canvas{display:block;width:100%;height:100%}
 
 .universe-lbl{font-size:10px;color:#8b949e;margin-bottom:6px}
 .ticks{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
-.tick{background:#1c2128;border:1px solid #30363d;border-radius:20px;padding:2px 8px;font-size:10px;color:#8b949e;font-family:monospace;letter-spacing:.8px}
+.tick{background:#232b38;border:1px solid #30363d;border-radius:20px;padding:2px 8px;font-size:10px;color:#8b949e;font-family:monospace;letter-spacing:.8px}
 
 /* ─── LOADING ───────────────────────────── */
-#loading{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:#0d1117;z-index:20;gap:14px}
+#loading{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:#141b24;z-index:20;gap:14px}
 .spin{width:34px;height:34px;border:3px solid #30363d;border-top-color:#58a6ff;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .ltxt{color:#8b949e;font-size:13px}
 #lsub{font-size:11px;color:#555;margin-top:-6px}
 
 /* ─── END SCREEN ────────────────────────── */
-#endscr{position:fixed;inset:0;display:none;align-items:flex-start;justify-content:center;background:rgba(13,17,23,.97);z-index:20;overflow-y:auto;padding:12px 0}
-.ec{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px 22px;max-width:600px;width:95%;margin:auto}
+#endscr{position:fixed;inset:0;display:none;align-items:flex-start;justify-content:center;background:rgba(20,27,36,.97);z-index:20;overflow-y:auto;padding:12px 0}
+.ec{background:#1d2431;border:1px solid #30363d;border-radius:12px;padding:24px 22px;max-width:600px;width:95%;margin:auto}
 .ee{font-size:32px;margin-bottom:4px;text-align:center}
 .et{font-size:17px;font-weight:700;margin-bottom:3px;text-align:center}
 .er{color:#8b949e;font-size:10px;margin-bottom:16px;font-family:monospace;text-align:center}
@@ -150,52 +150,52 @@ canvas{display:block;width:100%;height:100%}
 
 /* Grade + risk stats */
 #grade{text-align:center;padding:2px 0}
-#riskstats{display:flex;gap:4px;background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:10px 6px;margin:8px 0}
+#riskstats{display:flex;gap:4px;background:#141b24;border:1px solid #30363d;border-radius:8px;padding:10px 6px;margin:8px 0}
 .rst-cell{flex:1;text-align:center;min-width:0}
 .rst-lbl{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
 .rst-val{font-size:13px;font-weight:700;font-family:monospace;white-space:nowrap}
 
-#eqcurve{display:block;width:100%;height:90px;background:#0d1117;border-radius:6px;margin:6px 0}
+#eqcurve{display:block;width:100%;height:90px;background:#141b24;border-radius:6px;margin:6px 0}
 
 /* Ranking rows */
-.rank-row{display:grid;grid-template-columns:26px 78px 1fr 68px 80px;align-items:center;gap:7px;margin-bottom:5px;padding:7px 9px;background:#1c2128;border:1px solid #30363d;border-radius:6px}
+.rank-row{display:grid;grid-template-columns:26px 78px 1fr 68px 80px;align-items:center;gap:7px;margin-bottom:5px;padding:7px 9px;background:#232b38;border:1px solid #30363d;border-radius:6px}
 .rank-row.rank1{border-color:#f1c40f;background:rgba(241,196,15,.05)}
 .rank-row.rank2{border-color:#8b949e}
 .rank-row.rank3{border-color:#cd7f32}
 .rank-medal{font-size:14px;text-align:center}
 .rank-sym{font-family:monospace;font-weight:700;font-size:11px}
-.rank-bar-wrap{height:13px;background:#0d1117;border-radius:3px;overflow:hidden}
+.rank-bar-wrap{height:13px;background:#141b24;border-radius:3px;overflow:hidden}
 .rank-bar{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:4px;font-size:9px;font-weight:700;min-width:4px;transition:width 1s ease;white-space:nowrap;overflow:hidden}
 .rank-pct{font-family:monospace;font-size:11px;font-weight:600;text-align:right}
 .rank-val{font-family:monospace;font-size:10px;color:#8b949e;text-align:right}
 
 /* Trade stats table */
 .tstable{width:100%;border-collapse:collapse;border:1px solid #30363d;border-radius:6px;overflow:hidden;font-size:11px}
-.tstable th{background:#1c2128;color:#8b949e;font-size:9px;text-transform:uppercase;letter-spacing:.4px;font-weight:600;padding:5px 8px;text-align:left;border-bottom:1px solid #30363d}
+.tstable th{background:#232b38;color:#8b949e;font-size:9px;text-transform:uppercase;letter-spacing:.4px;font-weight:600;padding:5px 8px;text-align:left;border-bottom:1px solid #30363d}
 .tstable th.r{text-align:right}.tstable th.c{text-align:center}
-.tstable td{padding:6px 8px;border-bottom:1px solid #1c2128;font-family:monospace;vertical-align:middle;background:#0d1117}
+.tstable td{padding:6px 8px;border-bottom:1px solid #232b38;font-family:monospace;vertical-align:middle;background:#141b24}
 .tstable td.c{text-align:center}.tstable td.r{text-align:right}
 .tstable tr:last-child td{border-bottom:none}
 .tstable .sym{font-weight:700}
 
 /* vs-best bars */
-.vs-block{margin:4px 0;padding:10px;background:#0d1117;border:1px solid #30363d;border-radius:7px}
+.vs-block{margin:4px 0;padding:10px;background:#141b24;border:1px solid #30363d;border-radius:7px}
 .vs-row{display:flex;align-items:center;gap:7px;margin-bottom:5px}
 .vs-row:last-child{margin-bottom:0}
 .vs-name{font-size:11px;color:#8b949e;width:108px;flex-shrink:0}
-.vs-bar-wrap{flex:1;height:15px;background:#1c2128;border-radius:3px;overflow:hidden}
+.vs-bar-wrap{flex:1;height:15px;background:#232b38;border-radius:3px;overflow:hidden}
 .vs-bar{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:5px;font-size:9px;font-weight:700;transition:width 1s ease;white-space:nowrap;overflow:hidden}
 .vs-val{font-family:monospace;font-size:11px;width:90px;text-align:right;flex-shrink:0;line-height:1.4}
 
 /* Detail grid */
 .eg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px}
-.ei{background:#1c2128;border:1px solid #30363d;border-radius:5px;padding:7px 10px}
+.ei{background:#232b38;border:1px solid #30363d;border-radius:5px;padding:7px 10px}
 .eil{font-size:9px;color:#8b949e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
 .eiv{font-family:monospace;font-size:12px;font-weight:600}
 
 /* ─── ACHIEVEMENTS ─── (new) ────────────── */
 .ach-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
-.ach-card{display:flex;align-items:center;gap:7px;background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:7px 10px;flex:1;min-width:160px}
+.ach-card{display:flex;align-items:center;gap:7px;background:#141b24;border:1px solid #30363d;border-radius:6px;padding:7px 10px;flex:1;min-width:160px}
 .ach-card.earned{border-color:#e3b341;background:rgba(227,179,65,.06)}
 .ach-icon{font-size:18px;flex-shrink:0}
 .ach-name{font-size:11px;font-weight:700;color:#e6edf3;margin-bottom:1px}
@@ -210,10 +210,10 @@ canvas{display:block;width:100%;height:100%}
 .xbtn.primary:hover{background:rgba(38,222,129,.1)}
 
 /* Coach's notes */
-#advice{background:#0d1117;border-left:3px solid #58a6ff;border-radius:6px;padding:10px 12px;margin-top:10px;text-align:left}
+#advice{background:#141b24;border-left:3px solid #58a6ff;border-radius:6px;padding:10px 12px;margin-top:10px;text-align:left}
 
 /* ─── USERNAME ROW (setup) ─── */
-.uname-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 12px;background:#0d1117;border:1px solid #30363d;border-radius:8px}
+.uname-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 12px;background:#141b24;border:1px solid #30363d;border-radius:8px}
 .uname-row label{font-size:11px;color:#8b949e;white-space:nowrap;flex-shrink:0}
 .uname-row input{flex:1;background:none;border:none;color:#e6edf3;font-size:13px;outline:none;font-family:inherit;min-width:0}
 .uname-row input::placeholder{color:#444}
@@ -223,21 +223,21 @@ canvas{display:block;width:100%;height:100%}
 .end-hero .grade-big{line-height:1;margin-bottom:2px}
 .end-user-lbl{font-size:12px;color:#8b949e;margin-bottom:3px}
 .end-meta-lbl{font-size:10px;color:#555;letter-spacing:.3px}
-.end-returns{background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.end-returns{background:#141b24;border:1px solid #282f3d;border-radius:10px;padding:12px 14px;margin-bottom:10px}
 .end-ret-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
 .end-ret-you{font-size:26px;font-weight:800;font-family:monospace}
 .end-ret-spy{font-size:12px;color:#8b949e}
-.end-ret-row{display:flex;justify-content:space-between;font-size:11px;color:#8b949e;padding-top:6px;border-top:1px solid #21262d}
+.end-ret-row{display:flex;justify-content:space-between;font-size:11px;color:#8b949e;padding-top:6px;border-top:1px solid #282f3d}
 .end-ret-row b{color:#e6edf3;font-weight:600}
 /* Achievement pills */
-.ach-pills-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;min-height:8px}
-.ach-pill{display:flex;align-items:center;gap:5px;padding:4px 10px 4px 7px;border-radius:20px;font-size:11px;border:1px solid #21262d;color:#555}
+.ach-pills-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.ach-pill{display:flex;align-items:center;gap:5px;padding:4px 10px 4px 7px;border-radius:20px;font-size:11px;border:1px solid #282f3d;color:#555}
 .ach-pill.earned{border-color:#e3b341;color:#e3b341;background:rgba(227,179,65,.08)}
 /* Leaderboard */
 #lb-section{margin-bottom:12px}
 .lb-table{width:100%;border-collapse:collapse;font-size:11px}
-.lb-table th{color:#555;font-weight:400;padding:4px 6px;border-bottom:1px solid #21262d;text-align:left}
-.lb-table td{padding:5px 6px;border-bottom:1px solid #161b22;color:#8b949e;vertical-align:middle}
+.lb-table th{color:#555;font-weight:400;padding:4px 6px;border-bottom:1px solid #282f3d;text-align:left}
+.lb-table td{padding:5px 6px;border-bottom:1px solid #1d2431;color:#8b949e;vertical-align:middle}
 .lb-me td{color:#58a6ff !important;background:rgba(88,166,255,.05)}
 .lb-grade{font-weight:700;font-size:13px}
 .lb-rank{color:#555;width:22px;text-align:right;padding-right:10px !important}
@@ -256,13 +256,15 @@ details.end-details>summary::before{content:'▶';font-size:8px;transition:trans
 details.end-details[open]>summary::before{transform:rotate(90deg)}
 
 /* ─── TOAST ─────────────────────────────── */
-#toast{position:fixed;top:46px;left:50%;transform:translateX(-50%);background:#161b22;border:1px solid #30363d;border-radius:6px;padding:6px 14px;font-size:11px;z-index:50;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;max-width:90vw}
+#toast{position:fixed;top:46px;left:50%;transform:translateX(-50%);background:#1d2431;border:1px solid #30363d;border-radius:6px;padding:6px 14px;font-size:11px;z-index:50;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;max-width:90vw}
 #toast.show{opacity:1}
 
 /* ─── KEYBOARD HINT ─────────────────────── */
-.kbd-hint{display:none;font-size:9px;color:#555;margin-top:8px}
+.kbd-hint{display:none;margin-top:12px;padding:10px 14px;background:#141b24;border:1px solid #30363d;border-radius:6px;text-align:center}
+.kbd-hint-title{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.kbd-hint-keys{display:flex;flex-wrap:wrap;gap:5px 14px;justify-content:center;font-size:10px;color:#8b949e}
 @media (hover:hover){.kbd-hint{display:block}}
-kbd{background:#1c2128;border:1px solid #30363d;border-radius:3px;padding:1px 4px;font-family:monospace;font-size:9px;color:#8b949e}
+kbd{background:#232b38;border:1px solid #30363d;border-radius:3px;padding:1px 4px;font-family:monospace;font-size:9px;color:#8b949e}
 
 /* ─── MOBILE RESPONSIVE (≤560px) ──────── */
 @media (max-width:560px){
@@ -502,13 +504,16 @@ kbd{background:#1c2128;border:1px solid #30363d;border-radius:3px;padding:1px 4p
     <div class="universe-lbl">Universe: <span id="universe-count">120+</span> tickers</div>
     <div class="ticks" id="tick-list"></div>
 
-    <p class="kbd-hint" style="margin-top:10px">
-      <kbd>Space</kbd> play/pause &nbsp;
-      <kbd>B</kbd> buy &nbsp;
-      <kbd>S</kbd> sell &nbsp;
-      <kbd>1</kbd>–<kbd>4</kbd> select stock &nbsp;
-      <kbd>Tab</kbd> cycle stock
-    </p>
+    <div class="kbd-hint">
+      <div class="kbd-hint-title">Keyboard Shortcuts</div>
+      <div class="kbd-hint-keys">
+        <span><kbd>Space</kbd> play/pause</span>
+        <span><kbd>B</kbd> buy</span>
+        <span><kbd>S</kbd> sell/exit</span>
+        <span><kbd>1</kbd>–<kbd>4</kbd> select chart</span>
+        <span><kbd>Tab</kbd> cycle charts</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1093,7 +1098,7 @@ function drawOne(idx) {
   const ctx  = cv.getContext('2d');
   const W=cv.width, H=cv.height, cW=W-PAD.left-PAD.right, cH=H-PAD.top-PAD.bot;
 
-  ctx.fillStyle = '#0d1117'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#141b24'; ctx.fillRect(0, 0, W, H);
   if (!G.stocks || G.revealed < 1) return;
 
   const st    = G.stocks[idx];
@@ -1119,7 +1124,7 @@ function drawOne(idx) {
   ctx.font = '9px monospace'; ctx.textAlign = 'left';
   for (let i=0; i<=4; i++) {
     const pv = lo+(hi-lo)*(i/4), y = toY(pv);
-    ctx.strokeStyle='#1c2128'; ctx.lineWidth=0.4;
+    ctx.strokeStyle='#232b38'; ctx.lineWidth=0.4;
     ctx.beginPath(); ctx.moveTo(PAD.left,y); ctx.lineTo(W-PAD.right,y); ctx.stroke();
     ctx.fillStyle='#555';
     ctx.fillText(pv.toFixed(1), W-PAD.right+3, y+3);
@@ -1619,10 +1624,10 @@ function computeAchievements(S, bahResults, myTotal, youWin, gr) {
 function renderAchievements(earned) {
   const grid = ge('ach-grid');
   if (!grid) return;
-  grid.innerHTML = Object.keys(ACH_DEF).map(k=>{
-    const a = ACH_DEF[k], got = !!earned[k];
-    return `<div class="ach-pill${got?' earned':''}" title="${a.desc}">${a.icon} ${a.name}</div>`;
-  }).join('');
+  const pills = Object.keys(ACH_DEF)
+    .filter(k => !!earned[k])
+    .map(k => { const a = ACH_DEF[k]; return `<div class="ach-pill earned" title="${a.desc}">${a.icon} ${a.name}</div>`; });
+  grid.innerHTML = pills.join('');
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1823,11 +1828,11 @@ function downloadShareCard() {
   ctx.scale(DPR,DPR);
 
   // Background
-  ctx.fillStyle='#0d1117'; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#141b24'; ctx.fillRect(0,0,W,H);
   ctx.strokeStyle='#30363d'; ctx.lineWidth=1; ctx.strokeRect(.5,.5,W-1,H-1);
 
   // Header bar
-  ctx.fillStyle='#161b22'; ctx.fillRect(0,0,W,38);
+  ctx.fillStyle='#1d2431'; ctx.fillRect(0,0,W,38);
   ctx.strokeStyle='#30363d'; ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(0,38); ctx.lineTo(W,38); ctx.stroke();
 
@@ -1841,7 +1846,7 @@ function downloadShareCard() {
   ctx.fillText(playerStr+modeStr, W-16, 24);
 
   // Vertical divider
-  ctx.strokeStyle='#1c2128'; ctx.lineWidth=1;
+  ctx.strokeStyle='#232b38'; ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(W/2,38); ctx.lineTo(W/2,H-32); ctx.stroke();
 
   // LEFT: Grade
