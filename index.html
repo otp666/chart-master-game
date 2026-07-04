@@ -6,21 +6,21 @@
 <title>Chart Master</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#141b24;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;overflow:hidden;display:flex;flex-direction:column}
+html,body{height:100%;background:#0d1524;color:#e6edf3;font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;overflow:hidden;display:flex;flex-direction:column}
 
 /* ─── HEADER ─────────────────────────────── */
-#hdr{height:42px;min-height:42px;display:none;align-items:center;gap:10px;padding:0 12px;background:#1d2431;border-bottom:1px solid #30363d;flex-shrink:0}
-.logo{font-size:14px;font-weight:700;color:#58a6ff;letter-spacing:.5px;white-space:nowrap}
+#hdr{height:42px;min-height:42px;display:none;align-items:center;gap:10px;padding:0 12px;background:#122038;border-bottom:1px solid #243048;flex-shrink:0}
+.logo{font-size:14px;font-weight:700;color:#22d3ee;letter-spacing:.5px;white-space:nowrap}
 .hdr-mid{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;color:#8b949e}
-.pill{background:#1f6feb;color:#fff;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:700;font-family:monospace}
+.pill{background:#0891b2;color:#fff;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:700;font-family:monospace}
 .pill.gn{background:#238636}
-.ng{background:none;border:1px solid #30363d;border-radius:4px;padding:3px 10px;color:#8b949e;cursor:pointer;font-size:11px}
-.ng:hover{border-color:#58a6ff;color:#58a6ff}
+.ng{background:none;border:1px solid #243048;border-radius:4px;padding:3px 10px;color:#8b949e;cursor:pointer;font-size:11px}
+.ng:hover{border-color:#22d3ee;color:#22d3ee}
 
 /* ─── 4-CHART GRID ──────────────────────── */
-#charts{display:none;flex:1;min-height:0;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1px;background:#30363d}
-.ccell{position:relative;background:#141b24;cursor:pointer;overflow:hidden;transition:box-shadow .15s}
-.ccell.active-A{box-shadow:inset 0 0 0 2px #58a6ff}
+#charts{display:none;flex:1;min-height:0;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1px;background:#243048}
+.ccell{position:relative;background:#0d1524;cursor:pointer;overflow:hidden;transition:box-shadow .15s}
+.ccell.active-A{box-shadow:inset 0 0 0 2px #22d3ee}
 .ccell.active-B{box-shadow:inset 0 0 0 2px #bc8cff}
 .ccell.active-C{box-shadow:inset 0 0 0 2px #ff9f43}
 .ccell.active-D{box-shadow:inset 0 0 0 2px #26de81}
@@ -29,7 +29,7 @@ canvas{display:block;width:100%;height:100%}
 .cohlc{position:absolute;top:5px;right:7px;font-size:9px;font-family:monospace;color:#8b949e;pointer-events:none;background:rgba(20,27,36,.88);padding:2px 6px;border-radius:2px;white-space:nowrap;display:none;z-index:2}
 
 /* position badge */
-.cpos-badge{position:absolute;bottom:0;left:0;right:0;display:none;align-items:center;justify-content:space-between;padding:4px 8px;font-size:10px;font-family:monospace;font-weight:600;background:rgba(20,27,36,.88);border-top:1px solid #30363d;pointer-events:none;z-index:2;gap:6px}
+.cpos-badge{position:absolute;bottom:0;left:0;right:0;display:none;align-items:center;justify-content:space-between;padding:4px 8px;font-size:10px;font-family:monospace;font-weight:600;background:rgba(20,27,36,.88);border-top:1px solid #243048;pointer-events:none;z-index:2;gap:6px}
 .cpos-badge.pos-long{border-top-color:#3fb950}
 .cpos-badge.pos-short{border-top-color:#f85149}
 .cpos-left{display:flex;flex-direction:column;gap:1px}
@@ -38,58 +38,58 @@ canvas{display:block;width:100%;height:100%}
 .cpos-pnl{font-size:10px;font-weight:700;text-align:right}
 
 /* ─── CONTROLS BAR ──────────────────────── */
-#cbar{display:none;align-items:center;gap:7px;padding:4px 12px;background:#1d2431;border-top:1px solid #30363d;flex-shrink:0;min-height:36px}
+#cbar{display:none;align-items:center;gap:7px;padding:4px 12px;background:#122038;border-top:1px solid #243048;flex-shrink:0;min-height:36px}
 .slbl{font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
-.sb{background:none;border:1px solid #30363d;border-radius:3px;padding:2px 8px;color:#8b949e;cursor:pointer;font-size:11px;font-family:monospace}
+.sb{background:none;border:1px solid #243048;border-radius:3px;padding:2px 8px;color:#8b949e;cursor:pointer;font-size:11px;font-family:monospace}
 .sb.s20{border-color:#f0c040;color:#f0c040}.sb.s50{border-color:#4090f0;color:#4090f0}.sb.s200{border-color:#f040a0;color:#f040a0}
-.sb.on{border-color:#58a6ff;color:#58a6ff;background:rgba(88,166,255,.2)}
-.vsep{width:1px;height:18px;background:#30363d;flex-shrink:0}
-#pgw{flex:1;height:5px;background:#30363d;border-radius:3px;overflow:hidden;min-width:60px;position:relative}
+.sb.on{border-color:#22d3ee;color:#22d3ee;background:rgba(88,166,255,.2)}
+.vsep{width:1px;height:18px;background:#243048;flex-shrink:0}
+#pgw{flex:1;height:5px;background:#243048;border-radius:3px;overflow:hidden;min-width:60px;position:relative}
 #pgp{height:100%;background:#3fb950;border-radius:3px;width:0%;transition:width .2s}
-.cbtn{background:none;border:1px solid #30363d;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:11px;font-weight:600;color:#e6edf3;white-space:nowrap}
-.cbtn:hover{background:#232b38}
-#pbtn{background:#58a6ff;color:#000;border-color:#58a6ff}
+.cbtn{background:none;border:1px solid #243048;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:11px;font-weight:600;color:#e6edf3;white-space:nowrap}
+.cbtn:hover{background:#1a2640}
+#pbtn{background:#22d3ee;color:#000;border-color:#22d3ee}
 #pbtn:hover{opacity:.85}
-.spd-cyc{background:none;border:1px solid #30363d;border-radius:4px;padding:3px 10px;color:#e6edf3;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;min-width:34px;text-align:center}
-.spd-cyc:hover{border-color:#58a6ff;color:#58a6ff}
+.spd-cyc{background:none;border:1px solid #243048;border-radius:4px;padding:3px 10px;color:#e6edf3;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;min-width:34px;text-align:center}
+.spd-cyc:hover{border-color:#22d3ee;color:#22d3ee}
 .spd-cyc.fast{border-color:#e3b341;color:#e3b341}
 .spd-cyc.vfast{border-color:#f85149;color:#f85149}
 
 /* ─── PORTFOLIO BAR ─────────────────────── */
-#pbar{display:none;align-items:center;height:42px;padding:0 12px;background:#1d2431;border-top:1px solid #30363d;flex-shrink:0}
-.pi{display:flex;flex-direction:column;padding:0 12px;border-right:1px solid #30363d}
+#pbar{display:none;align-items:center;height:42px;padding:0 12px;background:#122038;border-top:1px solid #243048;flex-shrink:0}
+.pi{display:flex;flex-direction:column;padding:0 12px;border-right:1px solid #243048}
 .pi:first-child{padding-left:0}.pi:last-child{border-right:none;margin-left:auto;text-align:right}
 .plb{font-size:9px;color:#8b949e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:1px}
 .pv{font-size:12px;font-weight:600;font-family:monospace}
 .g{color:#3fb950}.r{color:#f85149}
 
 /* ─── ALLOC BAR ─────────────────────────── */
-#allocbar-wrap{display:none;padding:3px 12px 4px;background:#1d2431;border-top:1px solid #232b38;flex-shrink:0}
-#allocbar{display:flex;height:6px;border-radius:4px;overflow:hidden;background:#232b38}
+#allocbar-wrap{display:none;padding:3px 12px 4px;background:#122038;border-top:1px solid #1a2640;flex-shrink:0}
+#allocbar{display:flex;height:6px;border-radius:4px;overflow:hidden;background:#1a2640}
 
 /* ─── TRADE BAR ─────────────────────────── */
-#tbar{display:none;align-items:center;gap:7px;padding:4px 12px;background:#1d2431;border-top:1px solid #30363d;flex-shrink:0;min-height:38px}
-.stockbtn{border:1px solid #30363d;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:11px;font-weight:700;background:none;color:#8b949e;letter-spacing:.5px;transition:all .1s}
-.stockbtn.sel-A{border-color:#58a6ff;color:#58a6ff;background:rgba(88,166,255,.1)}
+#tbar{display:none;align-items:center;gap:7px;padding:4px 12px;background:#122038;border-top:1px solid #243048;flex-shrink:0;min-height:38px}
+.stockbtn{border:1px solid #243048;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:11px;font-weight:700;background:none;color:#8b949e;letter-spacing:.5px;transition:all .1s}
+.stockbtn.sel-A{border-color:#22d3ee;color:#22d3ee;background:rgba(88,166,255,.1)}
 .stockbtn.sel-B{border-color:#bc8cff;color:#bc8cff;background:rgba(188,140,255,.1)}
 .stockbtn.sel-C{border-color:#ff9f43;color:#ff9f43;background:rgba(255,159,67,.1)}
 .stockbtn.sel-D{border-color:#26de81;color:#26de81;background:rgba(38,222,129,.1)}
 .cp{font-family:monospace;font-size:13px;font-weight:700;color:#e3b341;min-width:56px}
 .cp-note{font-size:9px;color:#8b949e}
-.qi{background:#141b24;border:1px solid #30363d;border-radius:4px;padding:3px 7px;color:#e6edf3;font-family:monospace;width:70px;font-size:12px;text-align:center}
-.qi:focus{outline:none;border-color:#58a6ff}
-.qp{background:#232b38;border:1px solid #30363d;border-radius:3px;padding:2px 7px;color:#8b949e;cursor:pointer;font-size:10px}
+.qi{background:#0d1524;border:1px solid #243048;border-radius:4px;padding:3px 7px;color:#e6edf3;font-family:monospace;width:70px;font-size:12px;text-align:center}
+.qi:focus{outline:none;border-color:#22d3ee}
+.qp{background:#1a2640;border:1px solid #243048;border-radius:3px;padding:2px 7px;color:#8b949e;cursor:pointer;font-size:10px}
 .qp:hover{color:#e6edf3}
-.qpct{background:#232b38;border:1px solid #e3b341;border-radius:3px;padding:2px 7px;color:#e3b341;cursor:pointer;font-size:10px;font-weight:600}
+.qpct{background:#1a2640;border:1px solid #e3b341;border-radius:4px;padding:4px 12px;color:#e3b341;cursor:pointer;font-size:11px;font-weight:700;transition:all .1s}
 .qpct:hover{background:#2a2510;color:#f0c040}
 .tb{border:none;border-radius:4px;padding:5px 16px;font-weight:700;cursor:pointer;font-size:11px}
 .tb:hover{opacity:.85}.tb:disabled{opacity:.3;cursor:not-allowed}
 .buy{background:#3fb950;color:#000}.sell{background:#f85149;color:#fff}
 
 /* ─── TRADE LOG ─────────────────────────── */
-#tlog{display:none;align-items:center;gap:5px;padding:2px 12px;background:#141b24;border-top:1px solid #30363d;flex-shrink:0;min-height:26px;overflow-x:auto}
+#tlog{display:none;align-items:center;gap:5px;padding:2px 12px;background:#0d1524;border-top:1px solid #243048;flex-shrink:0;min-height:26px;overflow-x:auto}
 .lhd{font-size:9px;color:#8b949e;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;flex-shrink:0}
-.le{background:#1d2431;border:1px solid #30363d;border-radius:3px;padding:1px 7px;font-family:monospace;font-size:9px;white-space:nowrap;flex-shrink:0}
+.le{background:#122038;border:1px solid #243048;border-radius:3px;padding:1px 7px;font-family:monospace;font-size:9px;white-space:nowrap;flex-shrink:0}
 
 /* ─── TAP-TO-ZOOM ───────────────────────── */
 #charts.zoomed{grid-template-columns:1fr!important;grid-template-rows:1fr!important}
@@ -98,14 +98,14 @@ canvas{display:block;width:100%;height:100%}
 .zoom-hint{position:absolute;bottom:28px;right:7px;font-size:8px;color:#8b949e;pointer-events:none;background:rgba(20,27,36,.7);padding:1px 5px;border-radius:2px;z-index:3;white-space:nowrap}
 
 /* ─── SETUP SCREEN ──────────────────────── */
-#setup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#141b24;z-index:20;overflow-y:auto;padding:12px 0}
-.sc{background:#1d2431;border:1px solid #30363d;border-radius:12px;padding:28px 28px 24px;text-align:center;max-width:480px;width:92%;margin:auto}
-.sl{font-size:32px;font-weight:700;color:#58a6ff;margin-bottom:4px}
+#setup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0d1524;z-index:20;overflow-y:auto;padding:12px 0}
+.sc{background:#122038;border:1px solid #243048;border-radius:12px;padding:28px 28px 24px;text-align:center;max-width:480px;width:92%;margin:auto}
+.sl{font-size:32px;font-weight:700;color:#22d3ee;margin-bottom:4px}
 .ss{color:#8b949e;font-size:13px;margin-bottom:16px}
 
 /* Stats bar (streak / best / games) */
-.stats-bar{display:flex;gap:0;background:#141b24;border:1px solid #30363d;border-radius:8px;margin-bottom:16px;overflow:hidden}
-.stat-cell{flex:1;padding:8px 6px;text-align:center;border-right:1px solid #30363d}
+.stats-bar{display:flex;gap:0;background:#0d1524;border:1px solid #243048;border-radius:8px;margin-bottom:16px;overflow:hidden}
+.stat-cell{flex:1;padding:8px 6px;text-align:center;border-right:1px solid #243048}
 .stat-cell:last-child{border-right:none}
 .stat-lbl{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
 .stat-val{font-size:13px;font-weight:700;font-family:monospace;color:#e6edf3}
@@ -113,7 +113,7 @@ canvas{display:block;width:100%;height:100%}
 /* Daily challenge button */
 .daily-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,rgba(38,222,129,.12),rgba(88,166,255,.08));border:1px solid #26de81;border-radius:8px;padding:12px 16px;cursor:pointer;margin-bottom:14px;transition:all .15s;width:100%;text-align:left}
 .daily-btn:hover{background:linear-gradient(135deg,rgba(38,222,129,.2),rgba(88,166,255,.14));border-color:#3dffa0}
-.daily-btn.done{border-color:#30363d;background:#141b24;cursor:default;opacity:.7}
+.daily-btn.done{border-color:#243048;background:#0d1524;cursor:default;opacity:.7}
 .daily-icon{font-size:20px;flex-shrink:0}
 .daily-title{font-size:13px;font-weight:700;color:#26de81}
 .daily-desc{font-size:11px;color:#8b949e;margin-top:1px}
@@ -121,26 +121,26 @@ canvas{display:block;width:100%;height:100%}
 
 .mode-label{font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;text-align:left}
 .mode-cards{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
-.mode-card{background:#232b38;border:1px solid #30363d;border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:border-color .15s,background .15s}
-.mode-card:hover{border-color:#58a6ff;background:rgba(88,166,255,.06)}
+.mode-card{background:#1a2640;border:1px solid #243048;border-radius:8px;padding:10px 14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:border-color .15s,background .15s}
+.mode-card:hover{border-color:#22d3ee;background:rgba(88,166,255,.06)}
 .mode-icon{font-size:17px;min-width:24px;text-align:center}
 .mode-title{font-size:12px;font-weight:700;color:#e6edf3;margin-bottom:1px}
 .mode-desc{font-size:11px;color:#8b949e}
 
 .universe-lbl{font-size:10px;color:#8b949e;margin-bottom:6px}
 .ticks{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
-.tick{background:#232b38;border:1px solid #30363d;border-radius:20px;padding:2px 8px;font-size:10px;color:#8b949e;font-family:monospace;letter-spacing:.8px}
+.tick{background:#1a2640;border:1px solid #243048;border-radius:20px;padding:2px 8px;font-size:10px;color:#8b949e;font-family:monospace;letter-spacing:.8px}
 
 /* ─── LOADING ───────────────────────────── */
-#loading{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:#141b24;z-index:20;gap:14px}
-.spin{width:34px;height:34px;border:3px solid #30363d;border-top-color:#58a6ff;border-radius:50%;animation:spin .7s linear infinite}
+#loading{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:#0d1524;z-index:20;gap:14px}
+.spin{width:34px;height:34px;border:3px solid #243048;border-top-color:#22d3ee;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .ltxt{color:#8b949e;font-size:13px}
 #lsub{font-size:11px;color:#555;margin-top:-6px}
 
 /* ─── END SCREEN ────────────────────────── */
 #endscr{position:fixed;inset:0;display:none;align-items:flex-start;justify-content:center;background:rgba(20,27,36,.97);z-index:20;overflow-y:auto;padding:12px 0}
-.ec{background:#1d2431;border:1px solid #30363d;border-radius:12px;padding:24px 22px;max-width:600px;width:95%;margin:auto}
+.ec{background:#122038;border:1px solid #243048;border-radius:12px;padding:24px 22px;max-width:600px;width:95%;margin:auto}
 .ee{font-size:32px;margin-bottom:4px;text-align:center}
 .et{font-size:17px;font-weight:700;margin-bottom:3px;text-align:center}
 .er{color:#8b949e;font-size:10px;margin-bottom:16px;font-family:monospace;text-align:center}
@@ -150,52 +150,52 @@ canvas{display:block;width:100%;height:100%}
 
 /* Grade + risk stats */
 #grade{text-align:center;padding:2px 0}
-#riskstats{display:flex;gap:4px;background:#141b24;border:1px solid #30363d;border-radius:8px;padding:10px 6px;margin:8px 0}
+#riskstats{display:flex;gap:4px;background:#0d1524;border:1px solid #243048;border-radius:8px;padding:10px 6px;margin:8px 0}
 .rst-cell{flex:1;text-align:center;min-width:0}
 .rst-lbl{font-size:8px;color:#8b949e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
 .rst-val{font-size:13px;font-weight:700;font-family:monospace;white-space:nowrap}
 
-#eqcurve{display:block;width:100%;height:90px;background:#141b24;border-radius:6px;margin:6px 0}
+#eqcurve{display:block;width:100%;height:90px;background:#0d1524;border-radius:6px;margin:6px 0}
 
 /* Ranking rows */
-.rank-row{display:grid;grid-template-columns:26px 78px 1fr 68px 80px;align-items:center;gap:7px;margin-bottom:5px;padding:7px 9px;background:#232b38;border:1px solid #30363d;border-radius:6px}
+.rank-row{display:grid;grid-template-columns:26px 78px 1fr 68px 80px;align-items:center;gap:7px;margin-bottom:5px;padding:7px 9px;background:#1a2640;border:1px solid #243048;border-radius:6px}
 .rank-row.rank1{border-color:#f1c40f;background:rgba(241,196,15,.05)}
 .rank-row.rank2{border-color:#8b949e}
 .rank-row.rank3{border-color:#cd7f32}
 .rank-medal{font-size:14px;text-align:center}
 .rank-sym{font-family:monospace;font-weight:700;font-size:11px}
-.rank-bar-wrap{height:13px;background:#141b24;border-radius:3px;overflow:hidden}
+.rank-bar-wrap{height:13px;background:#0d1524;border-radius:3px;overflow:hidden}
 .rank-bar{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:4px;font-size:9px;font-weight:700;min-width:4px;transition:width 1s ease;white-space:nowrap;overflow:hidden}
 .rank-pct{font-family:monospace;font-size:11px;font-weight:600;text-align:right}
 .rank-val{font-family:monospace;font-size:10px;color:#8b949e;text-align:right}
 
 /* Trade stats table */
-.tstable{width:100%;border-collapse:collapse;border:1px solid #30363d;border-radius:6px;overflow:hidden;font-size:11px}
-.tstable th{background:#232b38;color:#8b949e;font-size:9px;text-transform:uppercase;letter-spacing:.4px;font-weight:600;padding:5px 8px;text-align:left;border-bottom:1px solid #30363d}
+.tstable{width:100%;border-collapse:collapse;border:1px solid #243048;border-radius:6px;overflow:hidden;font-size:11px}
+.tstable th{background:#1a2640;color:#8b949e;font-size:9px;text-transform:uppercase;letter-spacing:.4px;font-weight:600;padding:5px 8px;text-align:left;border-bottom:1px solid #243048}
 .tstable th.r{text-align:right}.tstable th.c{text-align:center}
-.tstable td{padding:6px 8px;border-bottom:1px solid #232b38;font-family:monospace;vertical-align:middle;background:#141b24}
+.tstable td{padding:6px 8px;border-bottom:1px solid #1a2640;font-family:monospace;vertical-align:middle;background:#0d1524}
 .tstable td.c{text-align:center}.tstable td.r{text-align:right}
 .tstable tr:last-child td{border-bottom:none}
 .tstable .sym{font-weight:700}
 
 /* vs-best bars */
-.vs-block{margin:4px 0;padding:10px;background:#141b24;border:1px solid #30363d;border-radius:7px}
+.vs-block{margin:4px 0;padding:10px;background:#0d1524;border:1px solid #243048;border-radius:7px}
 .vs-row{display:flex;align-items:center;gap:7px;margin-bottom:5px}
 .vs-row:last-child{margin-bottom:0}
 .vs-name{font-size:11px;color:#8b949e;width:108px;flex-shrink:0}
-.vs-bar-wrap{flex:1;height:15px;background:#232b38;border-radius:3px;overflow:hidden}
+.vs-bar-wrap{flex:1;height:15px;background:#1a2640;border-radius:3px;overflow:hidden}
 .vs-bar{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:5px;font-size:9px;font-weight:700;transition:width 1s ease;white-space:nowrap;overflow:hidden}
 .vs-val{font-family:monospace;font-size:11px;width:90px;text-align:right;flex-shrink:0;line-height:1.4}
 
 /* Detail grid */
 .eg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px}
-.ei{background:#232b38;border:1px solid #30363d;border-radius:5px;padding:7px 10px}
+.ei{background:#1a2640;border:1px solid #243048;border-radius:5px;padding:7px 10px}
 .eil{font-size:9px;color:#8b949e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
 .eiv{font-family:monospace;font-size:12px;font-weight:600}
 
 /* ─── ACHIEVEMENTS ─── (new) ────────────── */
 .ach-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
-.ach-card{display:flex;align-items:center;gap:7px;background:#141b24;border:1px solid #30363d;border-radius:6px;padding:7px 10px;flex:1;min-width:160px}
+.ach-card{display:flex;align-items:center;gap:7px;background:#0d1524;border:1px solid #243048;border-radius:6px;padding:7px 10px;flex:1;min-width:160px}
 .ach-card.earned{border-color:#e3b341;background:rgba(227,179,65,.06)}
 .ach-icon{font-size:18px;flex-shrink:0}
 .ach-name{font-size:11px;font-weight:700;color:#e6edf3;margin-bottom:1px}
@@ -204,16 +204,16 @@ canvas{display:block;width:100%;height:100%}
 
 /* ─── EXPORT / SHARE BUTTONS ─── (new) ─── */
 .export-row{display:flex;gap:7px;margin-top:14px;flex-wrap:wrap}
-.xbtn{flex:1;min-width:100px;background:none;border:1px solid #30363d;border-radius:6px;padding:8px 10px;color:#8b949e;cursor:pointer;font-size:11px;font-weight:600;transition:all .15s;text-align:center}
-.xbtn:hover{border-color:#58a6ff;color:#58a6ff;background:rgba(88,166,255,.08)}
+.xbtn{flex:1;min-width:100px;background:none;border:1px solid #243048;border-radius:6px;padding:8px 10px;color:#8b949e;cursor:pointer;font-size:11px;font-weight:600;transition:all .15s;text-align:center}
+.xbtn:hover{border-color:#22d3ee;color:#22d3ee;background:rgba(88,166,255,.08)}
 .xbtn.primary{border-color:#26de81;color:#26de81}
 .xbtn.primary:hover{background:rgba(38,222,129,.1)}
 
 /* Coach's notes */
-#advice{background:#141b24;border-left:3px solid #58a6ff;border-radius:6px;padding:10px 12px;margin-top:10px;text-align:left}
+#advice{background:#0d1524;border-left:3px solid #22d3ee;border-radius:6px;padding:10px 12px;margin-top:10px;text-align:left}
 
 /* ─── USERNAME ROW (setup) ─── */
-.uname-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 12px;background:#141b24;border:1px solid #30363d;border-radius:8px}
+.uname-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 12px;background:#0d1524;border:1px solid #243048;border-radius:8px}
 .uname-row label{font-size:11px;color:#8b949e;white-space:nowrap;flex-shrink:0}
 .uname-row input{flex:1;background:none;border:none;color:#e6edf3;font-size:13px;outline:none;font-family:inherit;min-width:0}
 .uname-row input::placeholder{color:#444}
@@ -223,7 +223,7 @@ canvas{display:block;width:100%;height:100%}
 .end-hero .grade-big{line-height:1;margin-bottom:2px}
 .end-user-lbl{font-size:12px;color:#8b949e;margin-bottom:3px}
 .end-meta-lbl{font-size:10px;color:#555;letter-spacing:.3px}
-.end-returns{background:#141b24;border:1px solid #282f3d;border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.end-returns{background:#0d1524;border:1px solid #282f3d;border-radius:10px;padding:12px 14px;margin-bottom:10px}
 .end-ret-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
 .end-ret-you{font-size:26px;font-weight:800;font-family:monospace}
 .end-ret-spy{font-size:12px;color:#8b949e}
@@ -237,15 +237,15 @@ canvas{display:block;width:100%;height:100%}
 #lb-section{margin-bottom:12px}
 .lb-table{width:100%;border-collapse:collapse;font-size:11px}
 .lb-table th{color:#555;font-weight:400;padding:4px 6px;border-bottom:1px solid #282f3d;text-align:left}
-.lb-table td{padding:5px 6px;border-bottom:1px solid #1d2431;color:#8b949e;vertical-align:middle}
-.lb-me td{color:#58a6ff !important;background:rgba(88,166,255,.05)}
+.lb-table td{padding:5px 6px;border-bottom:1px solid #122038;color:#8b949e;vertical-align:middle}
+.lb-me td{color:#22d3ee !important;background:rgba(88,166,255,.05)}
 .lb-grade{font-weight:700;font-size:13px}
 .lb-rank{color:#555;width:22px;text-align:right;padding-right:10px !important}
 .lb-name{font-weight:600;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* End actions */
 .end-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.end-btn{padding:10px 8px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid #30363d;background:none;color:#8b949e;transition:all .15s}
-.end-btn:hover{border-color:#58a6ff;color:#58a6ff}
+.end-btn{padding:10px 8px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid #243048;background:none;color:#8b949e;transition:all .15s}
+.end-btn:hover{border-color:#22d3ee;color:#22d3ee}
 .end-btn.primary{background:#3fb950;border-color:#3fb950;color:#000}
 .end-btn.primary:hover{opacity:.9}
 /* Collapsible details */
@@ -256,16 +256,22 @@ details.end-details>summary::before{content:'▶';font-size:8px;transition:trans
 details.end-details[open]>summary::before{transform:rotate(90deg)}
 
 /* ─── TOAST ─────────────────────────────── */
-#toast{position:fixed;top:46px;left:50%;transform:translateX(-50%);background:#1d2431;border:1px solid #30363d;border-radius:6px;padding:6px 14px;font-size:11px;z-index:50;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;max-width:90vw}
+#toast{position:fixed;top:46px;left:50%;transform:translateX(-50%);background:#122038;border:1px solid #243048;border-radius:6px;padding:6px 14px;font-size:11px;z-index:50;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;max-width:90vw}
 #toast.show{opacity:1}
 
 /* ─── KEYBOARD HINT ─────────────────────── */
-.kbd-hint{display:none;margin-bottom:12px;padding:10px 14px;background:#232b38;border:1px solid #30363d;border-radius:6px;text-align:center}
+.kbd-hint{display:none;margin-bottom:12px;padding:10px 14px;background:#1a2640;border:1px solid #243048;border-radius:6px;text-align:center}
 .kbd-hint-title{font-size:10px;color:#adbac7;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;font-weight:600}
 .kbd-hint-keys{display:flex;flex-wrap:wrap;gap:5px 16px;justify-content:center;font-size:10px;color:#adbac7}
-#kbd-row{display:none;align-items:center;justify-content:center;flex-wrap:wrap;gap:3px 10px;padding:3px 12px;background:#141b24;border-top:1px solid #282f3d;flex-shrink:0;font-size:9px;color:#555}
+#kbd-row{display:none;align-items:center;justify-content:center;flex-wrap:wrap;gap:3px 10px;padding:3px 12px;background:#0d1524;border-top:1px solid #282f3d;flex-shrink:0;font-size:9px;color:#555}
 @media (hover:hover){.kbd-hint{display:block}}
-kbd{background:#141b24;border:1px solid #30363d;border-radius:3px;padding:1px 5px;font-family:monospace;font-size:9px;color:#adbac7}
+kbd{background:#0d1524;border:1px solid #243048;border-radius:3px;padding:1px 5px;font-family:monospace;font-size:9px;color:#adbac7}
+
+/* ─── LAPTOP: larger kbd-row ────────────── */
+@media (min-width:768px) {
+  #kbd-row{font-size:11px;padding:5px 16px;gap:4px 14px}
+  #kbd-row kbd{font-size:10px;padding:2px 7px}
+}
 
 /* ─── MOBILE RESPONSIVE (≤560px) ──────── */
 @media (max-width:560px){
@@ -281,8 +287,8 @@ kbd{background:#141b24;border:1px solid #30363d;border-radius:3px;padding:1px 5p
   #pgw{min-width:30px}
 
   #pbar{height:auto;flex-wrap:wrap;padding:4px 8px;gap:0;align-content:flex-start}
-  .pi{padding:3px 6px;border-right:1px solid #30363d}
-  .pi:last-child{margin-left:0;border-right:1px solid #30363d;text-align:left}
+  .pi{padding:3px 6px;border-right:1px solid #243048}
+  .pi:last-child{margin-left:0;border-right:1px solid #243048;text-align:left}
   .plb{font-size:8px}.pv{font-size:10px}
 
   #tbar{flex-wrap:wrap;height:auto;min-height:auto;padding:5px 8px;gap:5px;align-items:center}
@@ -295,10 +301,8 @@ kbd{background:#141b24;border:1px solid #30363d;border-radius:3px;padding:1px 5p
   .tb{padding:5px 9px;font-size:10px}
   #tbar>.vsep{display:none}
   #tbar-spacer{display:none}
-  #tbar-qty{order:4;flex-basis:100%;display:flex;flex-direction:column;gap:3px}
-  .qp{display:none}
-  .qpct{padding:3px 8px;font-size:10px}
-  .qi{width:56px;font-size:11px}
+  #tbar-qty{order:4;flex-basis:100%;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .qpct{padding:4px 10px;font-size:10px}
 
   .rank-row{grid-template-columns:20px 54px 1fr 50px 62px;gap:5px;padding:6px 7px}
   .rank-sym{font-size:10px}.rank-pct{font-size:10px}.rank-val{font-size:9px}
@@ -333,7 +337,7 @@ kbd{background:#141b24;border:1px solid #30363d;border-radius:3px;padding:1px 5p
 <div id="charts">
   <div class="ccell" id="cell0" onclick="clickCell(0)">
     <canvas id="cv0"></canvas>
-    <div class="clabel" id="lbl0" style="color:#58a6ff">STOCK A</div>
+    <div class="clabel" id="lbl0" style="color:#22d3ee">STOCK A</div>
     <div class="cohlc"  id="ohlc0"></div>
     <div class="zoom-hint" id="zhint0" style="display:none">⤢ Tap to unzoom</div>
     <div class="cpos-badge" id="pos0">
@@ -425,22 +429,13 @@ kbd{background:#141b24;border:1px solid #30363d;border-radius:3px;padding:1px 5p
     </div>
   </div>
   <div class="vsep"></div>
-  <div id="tbar-qty" style="display:flex;flex-direction:column;gap:3px">
-    <div style="display:flex;align-items:center;gap:4px">
-      <span style="font-size:9px;color:#8b949e">QTY</span>
-      <input class="qi" id="qty" type="number" value="100" min="1" step="1">
-      <button class="qp" onclick="setQ(10)">10</button>
-      <button class="qp" onclick="setQ(100)">100</button>
-      <button class="qp" onclick="setQ(500)">500</button>
-      <button class="qp" id="qmax-btn" onclick="setQmax()">MAX</button>
-    </div>
-    <div style="display:flex;align-items:center;gap:4px">
-      <span style="font-size:9px;color:#3fb950" id="pct-lbl">Invest:</span>
-      <button class="qpct" onclick="setQpct(25)">25%</button>
-      <button class="qpct" onclick="setQpct(50)">50%</button>
-      <button class="qpct" onclick="setQpct(75)">75%</button>
-      <button class="qpct" onclick="setQpct(100)">100%</button>
-    </div>
+  <div id="tbar-qty" style="display:flex;align-items:center;gap:5px">
+    <input id="qty" type="number" value="100" min="1" step="1" style="display:none">
+    <span style="font-size:9px;color:#3fb950" id="pct-lbl">Invest:</span>
+    <button class="qpct" onclick="setQpct(25)">25%</button>
+    <button class="qpct" onclick="setQpct(50)">50%</button>
+    <button class="qpct" onclick="setQpct(75)">75%</button>
+    <button class="qpct" onclick="setQpct(100)">100%</button>
   </div>
   <div id="tbar-spacer" style="flex:1"></div>
   <div id="tbar-actions">
@@ -520,6 +515,13 @@ kbd{background:#141b24;border:1px solid #30363d;border-radius:3px;padding:1px 5p
         <span><kbd>`</kbd> speed</span>
         <span><kbd>1</kbd>–<kbd>4</kbd> select chart</span>
         <span><kbd>Tab</kbd> cycle</span>
+      </div>
+    </div>
+
+    <div id="setup-lb-section">
+      <div class="mode-label" style="margin-top:14px">🏆 Leaderboard</div>
+      <div id="setup-lb-list" style="min-height:36px">
+        <div style="color:#555;font-size:11px;text-align:center;padding:6px 0">Loading…</div>
       </div>
     </div>
 
@@ -674,7 +676,7 @@ const PLAY     = 252;   // play-window candles (1 year, revealed one by one)
 const TOTAL    = CTX + PLAY;
 const START    = 1_000_000;
 const LABELS   = ['A','B','C','D'];
-const COLORS   = ['#58a6ff','#bc8cff','#ff9f43','#26de81'];
+const COLORS   = ['#22d3ee','#bc8cff','#ff9f43','#26de81'];
 const SMA_COLS = {20:'#f0c040', 50:'#4090f0', 200:'#f040a0'};
 const PAD      = {top:26, right:68, bot:22, left:6};
 const NORM_BASE = 100;
@@ -745,7 +747,7 @@ const CATEGORY_MAP = {
 };
 
 const CAT_COLORS = {
-  tech:'#58a6ff', semi:'#bc8cff', software:'#a371f7', cyber:'#6c5ce7',
+  tech:'#22d3ee', semi:'#bc8cff', software:'#a371f7', cyber:'#6c5ce7',
   fintech:'#ff9f43', crypto:'#26de81', growth:'#fd79a8',
   consumer:'#fdcb6e', health:'#55efc4', finance:'#f0c040',
   energy:'#e17055', industrial:'#74b9ff', auto:'#00cec9',
@@ -1024,10 +1026,10 @@ async function startGame(n, opts={}) {
     exposureLog:Array.from({length:N},()=>[]),
     equityLog:  [], peakEquity:START, maxDD:0,
     investedCandles:0, playCandles:0,
-    closedTrades:[], volOn:false,
+    closedTrades:[], volOn:true,
     active:0, cash:START,
-    smaOn:{20:false,50:false,200:false},
-    revealed:CTX, timer:null, speed:900, zoomed:null,
+    smaOn:{20:true,50:false,200:false},
+    revealed:CTX, timer:null, speed:450, zoomed:null,
     spyPct, isDailyMode:daily,
     gameStartTime:Date.now(),
     achievements:{diamondHands:false, paperHands:false},
@@ -1059,12 +1061,12 @@ async function startGame(n, opts={}) {
   // Daily badge in header
   const dhb=ge('daily-hdr-badge'); if(dhb) dhb.style.display=daily?'':'none';
 
-  spdIdx=0; ge('spdbtn').textContent='1×'; ge('spdbtn').className='spd-cyc';
+  spdIdx=1; ge('spdbtn').textContent='2×'; ge('spdbtn').className='spd-cyc fast';
   ge('pbtn').textContent='▶▶ Play';
   ge('lempty').style.display='';
   document.querySelectorAll('.le').forEach(e=>e.remove());
-  [20,50,200].forEach(p=>{ ge('b'+p).className='sb'; });
-  ge('b-vol').className='sb';
+  [20,50,200].forEach(p=>{ ge('b'+p).className=G.smaOn[p]?'sb s'+p:'sb'; });
+  ge('b-vol').className=G.volOn?'sb on':'sb';
   for(let i=0;i<N;i++){ge('pos'+i).style.display='none';}
   updateStockBtns(); setupHover(); setupSwipe();
 
@@ -1091,6 +1093,7 @@ function showSetup() {
   show('setup','flex');
   renderSetupStats();
   checkDailyDone();
+  loadSetupLeaderboard();
 }
 
 // Page-load init
@@ -1110,7 +1113,7 @@ function drawOne(idx) {
   const ctx  = cv.getContext('2d');
   const W=cv.width, H=cv.height, cW=W-PAD.left-PAD.right, cH=H-PAD.top-PAD.bot;
 
-  ctx.fillStyle = '#141b24'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#0d1524'; ctx.fillRect(0, 0, W, H);
   if (!G.stocks || G.revealed < 1) return;
 
   const st    = G.stocks[idx];
@@ -1136,7 +1139,7 @@ function drawOne(idx) {
   ctx.font = '9px monospace'; ctx.textAlign = 'left';
   for (let i=0; i<=4; i++) {
     const pv = lo+(hi-lo)*(i/4), y = toY(pv);
-    ctx.strokeStyle='#232b38'; ctx.lineWidth=0.4;
+    ctx.strokeStyle='#1a2640'; ctx.lineWidth=0.4;
     ctx.beginPath(); ctx.moveTo(PAD.left,y); ctx.lineTo(W-PAD.right,y); ctx.stroke();
     ctx.fillStyle='#555';
     ctx.fillText(pv.toFixed(1), W-PAD.right+3, y+3);
@@ -1169,7 +1172,7 @@ function drawOne(idx) {
       const vBot  = H - PAD.bot;
       const vBand = vBot - vTop;
       const vcw   = Math.max(.6, (cW/n) * .65);
-      ctx.strokeStyle='#30363d'; ctx.lineWidth=0.5;
+      ctx.strokeStyle='#243048'; ctx.lineWidth=0.5;
       ctx.beginPath(); ctx.moveTo(PAD.left,vTop-1); ctx.lineTo(W-PAD.right,vTop-1); ctx.stroke();
       slice.forEach((d,i) => {
         if (!vols[i]) return;
@@ -1316,7 +1319,7 @@ function updateHUD() {
 
   // Allocation bar
   const segs = G.positions.map((p,i) => ({w:p.shares*currNormPrice(i), c:COLORS[i]}));
-  segs.push({w:G.cash, c:'#30363d'});
+  segs.push({w:G.cash, c:'#243048'});
   const tot2 = segs.reduce((s,x)=>s+x.w,0) || 1;
   const ab = ge('allocbar');
   if (ab) ab.innerHTML = segs.filter(s=>s.w>0)
@@ -1555,7 +1558,7 @@ function drawEquityCurve() {
   const rng=(hi-lo)||1;
   const xp=i=>P+i/(Math.max(eq.length-1,1))*(W-2*P);
   const yp=v=>P+(1-(v-lo)/rng)*(H-2*P);
-  ctx.strokeStyle='#30363d'; ctx.lineWidth=1; ctx.setLineDash([3,3]);
+  ctx.strokeStyle='#243048'; ctx.lineWidth=1; ctx.setLineDash([3,3]);
   ctx.beginPath(); ctx.moveTo(P,yp(START)); ctx.lineTo(W-P,yp(START)); ctx.stroke();
   ctx.setLineDash([]);
   ctx.beginPath(); ctx.moveTo(xp(0),yp(eq[0]));
@@ -1566,7 +1569,7 @@ function drawEquityCurve() {
   const grad=ctx.createLinearGradient(0,P,0,H);
   grad.addColorStop(0,gc+'0.25)'); grad.addColorStop(1,gc+'0.03)');
   ctx.fillStyle=grad; ctx.fill();
-  ctx.strokeStyle='#58a6ff'; ctx.lineWidth=1.5;
+  ctx.strokeStyle='#22d3ee'; ctx.lineWidth=1.5;
   ctx.beginPath(); eq.forEach((v,i)=>i?ctx.lineTo(xp(i),yp(v)):ctx.moveTo(xp(i),yp(v))); ctx.stroke();
   let pk=-Infinity, worst=0, wi=0;
   eq.forEach((v,i)=>{pk=Math.max(pk,v);const dd=(v-pk)/pk;if(dd<worst){worst=dd;wi=i;}});
@@ -1810,7 +1813,7 @@ function endGame() {
   `;
 
   ge('advice').innerHTML=
-    `<div style="font-weight:700;margin-bottom:7px;color:#58a6ff;font-size:12px">📋 Coach's Notes</div>`+
+    `<div style="font-weight:700;margin-bottom:7px;color:#22d3ee;font-size:12px">📋 Coach's Notes</div>`+
     buildAdvice(S,youWin).map(t=>`<div style="font-size:11px;color:#c9d1d9;margin:4px 0;line-height:1.55">• ${t}</div>`).join('');
 
   show('endscr','flex');
@@ -1845,15 +1848,15 @@ function downloadShareCard() {
   ctx.scale(DPR,DPR);
 
   // Background
-  ctx.fillStyle='#141b24'; ctx.fillRect(0,0,W,H);
-  ctx.strokeStyle='#30363d'; ctx.lineWidth=1; ctx.strokeRect(.5,.5,W-1,H-1);
+  ctx.fillStyle='#0d1524'; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#243048'; ctx.lineWidth=1; ctx.strokeRect(.5,.5,W-1,H-1);
 
   // Header bar
-  ctx.fillStyle='#1d2431'; ctx.fillRect(0,0,W,38);
-  ctx.strokeStyle='#30363d'; ctx.lineWidth=1;
+  ctx.fillStyle='#122038'; ctx.fillRect(0,0,W,38);
+  ctx.strokeStyle='#243048'; ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(0,38); ctx.lineTo(W,38); ctx.stroke();
 
-  ctx.fillStyle='#58a6ff'; ctx.font='bold 14px monospace'; ctx.textAlign='left';
+  ctx.fillStyle='#22d3ee'; ctx.font='bold 14px monospace'; ctx.textAlign='left';
   ctx.fillText('▼ CHART MASTER', 16, 24);
 
   const today=new Date().toISOString().slice(0,10);
@@ -1863,7 +1866,7 @@ function downloadShareCard() {
   ctx.fillText(playerStr+modeStr, W-16, 24);
 
   // Vertical divider
-  ctx.strokeStyle='#232b38'; ctx.lineWidth=1;
+  ctx.strokeStyle='#1a2640'; ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(W/2,38); ctx.lineTo(W/2,H-32); ctx.stroke();
 
   // LEFT: Grade
@@ -1882,7 +1885,7 @@ function downloadShareCard() {
     const lo=Math.min(START,...eq), hi=Math.max(START,...eq), rng=(hi-lo)||1;
     const cx0=20, cxW=W/2-30, cy0=188, cyH=62;
     const baseY=cy0+(1-(START-lo)/rng)*cyH;
-    ctx.strokeStyle='#30363d'; ctx.lineWidth=0.8; ctx.setLineDash([3,3]);
+    ctx.strokeStyle='#243048'; ctx.lineWidth=0.8; ctx.setLineDash([3,3]);
     ctx.beginPath(); ctx.moveTo(cx0,baseY); ctx.lineTo(cx0+cxW,baseY); ctx.stroke();
     ctx.setLineDash([]);
     const xp=i=>cx0+i/(eq.length-1)*cxW, yp=v=>cy0+(1-(v-lo)/rng)*cyH;
@@ -1893,7 +1896,7 @@ function downloadShareCard() {
     eq.forEach((v,i)=>ctx.lineTo(xp(i),yp(v)));
     ctx.lineTo(xp(eq.length-1),yp(START)); ctx.lineTo(xp(0),yp(START)); ctx.closePath();
     ctx.fillStyle=grad; ctx.fill();
-    ctx.strokeStyle='#58a6ff'; ctx.lineWidth=1.5;
+    ctx.strokeStyle='#22d3ee'; ctx.lineWidth=1.5;
     ctx.beginPath(); eq.forEach((v,i)=>i?ctx.lineTo(xp(i),yp(v)):ctx.moveTo(xp(i),yp(v))); ctx.stroke();
   }
 
@@ -1931,7 +1934,7 @@ function downloadShareCard() {
   ctx.fillText(rslt,rx,ry+4);
 
   // Footer
-  ctx.strokeStyle='#30363d'; ctx.lineWidth=1;
+  ctx.strokeStyle='#243048'; ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(0,H-30); ctx.lineTo(W,H-30); ctx.stroke();
   ctx.fillStyle='#555'; ctx.font='9px monospace'; ctx.textAlign='center';
   ctx.fillText('chartmaster.app  ·  Can you beat the market?',W/2,H-12);
@@ -1968,7 +1971,7 @@ function copyResult() {
    SECTION 13 — LEADERBOARD
    ═══════════════════════════════════════════════════════════ */
 function gradeColor(g) {
-  const m={'A+':'#f1c40f','A':'#3fb950','A-':'#3fb950','B+':'#58a6ff','B':'#58a6ff','B-':'#58a6ff','C+':'#e3b341','C':'#e3b341','C-':'#8b949e','D':'#f85149','F':'#f85149'};
+  const m={'A+':'#f1c40f','A':'#3fb950','A-':'#3fb950','B+':'#22d3ee','B':'#22d3ee','B-':'#22d3ee','C+':'#e3b341','C':'#e3b341','C-':'#8b949e','D':'#f85149','F':'#f85149'};
   return m[g]||'#e6edf3';
 }
 
@@ -2027,6 +2030,24 @@ async function loadLeaderboard() {
   } catch(e) {
     ge('lb-list').innerHTML = '<div style="color:#555;font-size:11px;padding:6px 0">Leaderboard unavailable</div>';
   }
+}
+
+async function loadSetupLeaderboard() {
+  const el = ge('setup-lb-list');
+  if (!el || !SB_URL || !SB_KEY) { if(el) el.innerHTML=''; return; }
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/${SB_TABLE}?select=username,grade,return_pct,mode&order=return_pct.desc&limit=5`,
+      { headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`} }
+    );
+    if (!res.ok) throw 0;
+    const rows = await res.json();
+    if (!rows.length) { el.innerHTML='<div style="color:#555;font-size:11px;text-align:center;padding:6px 0">No scores yet — be the first!</div>'; return; }
+    el.innerHTML = '<table class="lb-table">'+rows.map((r,i)=>{
+      const rc=r.return_pct>=0?'#3fb950':'#f85149';
+      return `<tr><td class="lb-rank">${i+1}</td><td class="lb-name">${r.username}</td><td class="lb-grade" style="color:${gradeColor(r.grade)}">${r.grade}</td><td style="color:${rc};font-family:monospace">${r.return_pct>=0?'+':''}${r.return_pct.toFixed(1)}%</td><td style="color:#555;font-size:10px">${r.mode||'—'}</td></tr>`;
+    }).join('')+'</table>';
+  } catch(e) { el.innerHTML=''; }
 }
 
 // CSV trade log download
