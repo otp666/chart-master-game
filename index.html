@@ -457,7 +457,7 @@ kbd{background:#1c2128;border:1px solid #30363d;border-radius:3px;padding:1px 4p
     <div class="ticks" id="tick-list"></div>
 
     <p class="kbd-hint" style="margin-top:10px">
-      <kbd>Space</kbd> next candle &nbsp;
+      <kbd>Space</kbd> play/pause &nbsp;
       <kbd>B</kbd> buy &nbsp;
       <kbd>S</kbd> sell &nbsp;
       <kbd>1</kbd>–<kbd>4</kbd> select stock &nbsp;
@@ -1370,7 +1370,7 @@ document.addEventListener('keydown', e => {
   const tag = document.activeElement.tagName;
   if (tag==='INPUT'||tag==='TEXTAREA') return;
   switch(e.key) {
-    case ' ':       e.preventDefault(); stepNext(); break;
+    case ' ':       e.preventDefault(); togglePlay(); break;
     case 'b': case 'B': trade('buy');  break;
     case 's': case 'S': trade('sell'); break;
     case '1': setActive(0); break;
