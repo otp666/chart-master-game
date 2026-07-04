@@ -260,11 +260,12 @@ details.end-details[open]>summary::before{transform:rotate(90deg)}
 #toast.show{opacity:1}
 
 /* ─── KEYBOARD HINT ─────────────────────── */
-.kbd-hint{display:none;margin-top:12px;padding:10px 14px;background:#141b24;border:1px solid #30363d;border-radius:6px;text-align:center}
-.kbd-hint-title{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
-.kbd-hint-keys{display:flex;flex-wrap:wrap;gap:5px 14px;justify-content:center;font-size:10px;color:#8b949e}
+.kbd-hint{display:none;margin-bottom:12px;padding:10px 14px;background:#232b38;border:1px solid #30363d;border-radius:6px;text-align:center}
+.kbd-hint-title{font-size:10px;color:#adbac7;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;font-weight:600}
+.kbd-hint-keys{display:flex;flex-wrap:wrap;gap:5px 16px;justify-content:center;font-size:10px;color:#adbac7}
+#kbd-row{display:none;align-items:center;justify-content:center;flex-wrap:wrap;gap:3px 10px;padding:3px 12px;background:#141b24;border-top:1px solid #282f3d;flex-shrink:0;font-size:9px;color:#555}
 @media (hover:hover){.kbd-hint{display:block}}
-kbd{background:#232b38;border:1px solid #30363d;border-radius:3px;padding:1px 4px;font-family:monospace;font-size:9px;color:#8b949e}
+kbd{background:#141b24;border:1px solid #30363d;border-radius:3px;padding:1px 5px;font-family:monospace;font-size:9px;color:#adbac7}
 
 /* ─── MOBILE RESPONSIVE (≤560px) ──────── */
 @media (max-width:560px){
@@ -451,7 +452,15 @@ kbd{background:#232b38;border:1px solid #30363d;border-radius:3px;padding:1px 4p
 <!-- ═══ TRADE LOG ════════════════════════════════════════ -->
 <div id="tlog">
   <span class="lhd">Trades</span>
-  <span id="lempty" style="font-size:10px;color:#8b949e">No trades yet — study the chart(s), then BUY the strongest</span>
+  <span id="lempty" style="font-size:10px;color:#8b949e">No trades yet</span>
+</div>
+<div id="kbd-row">
+  <kbd>B</kbd> buy &nbsp;·&nbsp;
+  <kbd>S</kbd> sell &nbsp;·&nbsp;
+  <kbd>Q</kbd><kbd>W</kbd><kbd>E</kbd><kbd>R</kbd> 25/50/75/100% &nbsp;·&nbsp;
+  <kbd>`</kbd> speed &nbsp;·&nbsp;
+  <kbd>Space</kbd> play &nbsp;·&nbsp;
+  <kbd>1</kbd>–<kbd>4</kbd> / <kbd>Tab</kbd> chart
 </div>
 
 <!-- ═══ SETUP SCREEN ═════════════════════════════════════ -->
@@ -501,19 +510,21 @@ kbd{background:#232b38;border:1px solid #30363d;border-radius:3px;padding:1px 4p
       </div>
     </div>
 
-    <div class="universe-lbl">Universe: <span id="universe-count">120+</span> tickers</div>
-    <div class="ticks" id="tick-list"></div>
-
     <div class="kbd-hint">
-      <div class="kbd-hint-title">Keyboard Shortcuts</div>
+      <div class="kbd-hint-title">⌨ Keyboard Shortcuts</div>
       <div class="kbd-hint-keys">
         <span><kbd>Space</kbd> play/pause</span>
         <span><kbd>B</kbd> buy</span>
         <span><kbd>S</kbd> sell/exit</span>
+        <span><kbd>Q</kbd><kbd>W</kbd><kbd>E</kbd><kbd>R</kbd> 25/50/75/100%</span>
+        <span><kbd>`</kbd> speed</span>
         <span><kbd>1</kbd>–<kbd>4</kbd> select chart</span>
-        <span><kbd>Tab</kbd> cycle charts</span>
+        <span><kbd>Tab</kbd> cycle</span>
       </div>
     </div>
+
+    <div class="universe-lbl">Universe: <span id="universe-count">120+</span> tickers</div>
+    <div class="ticks" id="tick-list"></div>
   </div>
 </div>
 
@@ -1043,6 +1054,7 @@ async function startGame(n, opts={}) {
   document.querySelectorAll('.ccell').forEach(c=>c.classList.remove('zoom-active'));
 
   ['hdr','cbar','pbar','allocbar-wrap','tbar','tlog'].forEach(id=>show(id,'flex'));
+  if (window.matchMedia('(hover:hover)').matches) show('kbd-row','flex');
 
   // Daily badge in header
   const dhb=ge('daily-hdr-badge'); if(dhb) dhb.style.display=daily?'':'none';
@@ -1075,7 +1087,7 @@ function showSetup() {
   document.querySelectorAll('.ccell').forEach(el=>el.classList.remove('zoom-active'));
   document.querySelectorAll('.zoom-hint').forEach(h=>h.style.display='none');
   if(G.stocks) G.zoomed=null;
-  ['hdr','cbar','pbar','allocbar-wrap','tbar','tlog'].forEach(hide);
+  ['hdr','cbar','pbar','allocbar-wrap','tbar','tlog','kbd-row'].forEach(hide);
   show('setup','flex');
   renderSetupStats();
   checkDailyDone();
@@ -1488,6 +1500,11 @@ document.addEventListener('keydown', e => {
     case ' ':       e.preventDefault(); togglePlay(); break;
     case 'b': case 'B': trade('buy');  break;
     case 's': case 'S': trade('sell'); break;
+    case 'q': case 'Q': setQpct(25);  break;
+    case 'w': case 'W': setQpct(50);  break;
+    case 'e': case 'E': setQpct(75);  break;
+    case 'r': case 'R': setQpct(100); break;
+    case '`':           cycleSpeed();  break;
     case '1': setActive(0); break;
     case '2': if(N>=2) setActive(1); break;
     case '3': if(N>=3) setActive(2); break;
