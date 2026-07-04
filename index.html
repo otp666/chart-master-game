@@ -433,8 +433,7 @@ kbd{background:#0d1524;border:1px solid #243048;border-radius:3px;padding:1px 5p
   </div>
   <div class="vsep"></div>
   <div id="tbar-qty" style="display:flex;align-items:center;gap:5px">
-    <input id="qty" type="number" value="100" min="1" step="1" style="display:none">
-    <span style="font-size:9px;color:#3fb950" id="pct-lbl">Invest:</span>
+    <span style="font-size:9px;color:#8b949e" id="pct-lbl" title="BUY: % of cash · EXIT: % of position">Size:</span>
     <button class="qpct" onclick="setQpct(25)">25%</button>
     <button class="qpct" onclick="setQpct(50)">50%</button>
     <button class="qpct" onclick="setQpct(75)">75%</button>
@@ -1069,11 +1068,11 @@ async function startGame(n, opts={}) {
   document.querySelectorAll('.le').forEach(e=>e.remove());
   [20,50,200].forEach(p=>{ ge('b'+p).className=G.smaOn[p]?'sb s'+p:'sb'; });
   ge('b-vol').className=G.volOn?'sb on':'sb';
-  pctStepIdx=0; document.querySelectorAll('.qpct').forEach((b,i)=>b.classList.toggle('active',i===0));
+  setQpct(25);
   for(let i=0;i<N;i++){ge('pos'+i).style.display='none';}
   updateStockBtns(); setupHover(); setupSwipe();
 
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{drawAll();updateHUD();updatePctLabel();}));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{drawAll();updateHUD();}));
 }
 
 async function startDaily() {
@@ -1349,8 +1348,7 @@ function updatePositionBadges() {
 }
 
 function setActive(i) {
-  G.active = i; updateStockBtns(); updateHUD(); updatePctLabel();
-  setQpct(PCT_STEPS[pctStepIdx]);
+  G.active = i; updateStockBtns(); updateHUD();
 }
 function updateStockBtns() {
   for (let i=0; i<N; i++) {
@@ -1416,18 +1414,20 @@ function cycleSpeed() {
    ═══════════════════════════════════════════════════════════ */
 function trade(action) {
   stopPlay();
-  const a=G.active, np=currNormPrice(a), qty=parseInt(ge('qty').value)||0;
+  const a=G.active, np=currNormPrice(a), pct=PCT_STEPS[pctStepIdx];
   const lbl=LABELS[a], col=COLORS[a];
-  if (qty <= 0) { toast('Enter a valid quantity','err'); return; }
 
   if (action === 'buy') {
+    // % of available cash, resolved at trade time
+    const qty = Math.floor(G.cash*(pct/100)/np);
+    if (qty < 1) { toast(`Not enough cash for ${pct}% — $${fmt(G.cash)} left`,'err'); return; }
     const cost = np*qty;
-    if (cost > G.cash) { toast(`Need $${fmt(cost)} — only $${fmt(G.cash)}`,'err'); return; }
     const pos = G.positions[a];
     // Track entry candle for Diamond Hands achievement
     if (pos.shares === 0) pos.entryCandle = G.revealed;
     pos.avgCost = (pos.avgCost*pos.shares + np*qty)/(pos.shares+qty);
     pos.shares += qty; G.cash -= cost;
+    if (G.cash < 0.005) G.cash = 0;
     G.tradeStats[a].buys++;
     G.tradeLog.push({stockIdx:a, action:'buy', qty, price:np, candle:G.revealed});
     addLog(lbl,'BUY',qty,np,null,col);
@@ -1435,7 +1435,9 @@ function trade(action) {
     sfxBuy();
   } else {
     const pos = G.positions[a];
-    if (qty > pos.shares) { toast(`Only holding ${pos.shares} units of ${lbl}`,'err'); return; }
+    if (pos.shares < 1) { toast(`No position in ${lbl}`,'err'); return; }
+    // % of current position, resolved at trade time
+    const qty = Math.min(pos.shares, Math.max(1, Math.round(pos.shares*(pct/100))));
     const proceeds=np*qty, realised=(np-pos.avgCost)*qty;
     const pctGain = pos.avgCost>0 ? (np-pos.avgCost)/pos.avgCost*100 : 0;
     G.closedTrades.push({label:lbl, pnl:realised, pct:pctGain});
@@ -1464,7 +1466,7 @@ function trade(action) {
     toast(`[${lbl}] Sold ${qty} | P&L: ${realised>=0?'+':'-'}$${fmt(Math.abs(realised))}`, realised>=0?'ok':'err');
     realised >= 0 ? sfxSellWin() : sfxSellLoss();
   }
-  updateHUD(); render(); updatePctLabel();
+  updateHUD(); render();
 }
 
 function addLog(stockLbl, action, qty, price, pnl, col) {
@@ -1478,22 +1480,13 @@ function addLog(stockLbl, action, qty, price, pnl, col) {
   ge('tlog').appendChild(e); ge('tlog').scrollLeft=9999;
 }
 
-function setQ(n)    { ge('qty').value=n; updatePctLabel(); }
-function setQmax() {
-  const a=G.active, pos=G.positions[a];
-  ge('qty').value = pos.shares>0 ? pos.shares : Math.max(1,Math.floor(G.cash/currNormPrice(a)));
-  updatePctLabel();
-}
 const PCT_STEPS = [25, 50, 75, 100];
 let pctStepIdx = 0;
+// % is a mode, not a quantity — units are computed inside trade() at
+// the moment B/S is pressed (BUY: % of cash, EXIT: % of position)
 function setQpct(pct) {
-  const a=G.active, pos=G.positions[a], price=currNormPrice(a);
-  const units = pos.shares>0
-    ? Math.max(1, Math.round(pos.shares*(pct/100)))
-    : Math.max(1, Math.floor(G.cash*(pct/100)/price));
-  ge('qty').value=units; updatePctLabel();
-  pctStepIdx=PCT_STEPS.indexOf(pct); if(pctStepIdx<0)pctStepIdx=0;
-  document.querySelectorAll('.qpct').forEach((b,i)=>b.classList.toggle('active',PCT_STEPS[i]===pct));
+  pctStepIdx = Math.max(0, PCT_STEPS.indexOf(pct));
+  document.querySelectorAll('.qpct').forEach((b,i)=>b.classList.toggle('active',i===pctStepIdx));
 }
 function toggleUniverse() {
   const ticks=ge('tick-list'), btn=ge('uni-toggle');
@@ -1501,13 +1494,6 @@ function toggleUniverse() {
   ticks.style.display=open?'none':'';
   btn.textContent=open?'▼ show all':'▲ hide';
 }
-function updatePctLabel() {
-  const a=G.active, pos=G.positions[a], lbl=ge('pct-lbl');
-  if (!lbl || !G.stocks) return;
-  if (pos && pos.shares>0) { lbl.textContent='Exit:';    lbl.style.color='#f85149'; }
-  else                     { lbl.textContent='Invest:';  lbl.style.color='#3fb950'; }
-}
-
 /* ─── KEYBOARD SHORTCUTS ─────────────────────────────────── */
 document.addEventListener('keydown', e => {
   if (!G.stocks) return;
