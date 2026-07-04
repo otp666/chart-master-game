@@ -166,9 +166,9 @@ def main():
     total = len(tickers)
     ok = fail = skipped = 0
 
-    print(f'Chart Master data fetch  |  {total} tickers  |  output → {OUT_DIR}')
+    print(f'Chart Master data fetch  |  {total} tickers  |  output -> {OUT_DIR}')
     print(f'Today: {today}  |  resume={args.resume}')
-    print('─' * 56)
+    print('-' * 56)
 
     for i, (game_sym, api_sym) in enumerate(tickers, 1):
         out_path = os.path.join(OUT_DIR, f'{game_sym}.json')
@@ -198,14 +198,14 @@ def main():
             print(f'OK  ({len(candles)} candles)')
             ok += 1
         else:
-            print(f'FAIL — {err}')
+            print(f'FAIL - {err}')
             fail += 1
 
         if i < total:
             time.sleep(DELAY_S)
 
-    print('─' * 56)
-    print(f'Done: {ok} OK · {fail} failed · {skipped} skipped')
+    print('-' * 56)
+    print(f'Done: {ok} OK / {fail} failed / {skipped} skipped')
 
     write_manifest(manifest, today)
 
