@@ -1350,6 +1350,7 @@ function updatePositionBadges() {
 
 function setActive(i) {
   G.active = i; updateStockBtns(); updateHUD(); updatePctLabel();
+  setQpct(PCT_STEPS[pctStepIdx]);
 }
 function updateStockBtns() {
   for (let i=0; i<N; i++) {
@@ -1837,9 +1838,8 @@ function endGame() {
   // Store last game result for share/export
   G.lastResult = {myTotal,myPct,bahResults,sorted,spyPct,S,gr,youWin,earned};
 
-  // Leaderboard
-  submitScore();
-  loadLeaderboard();
+  // Leaderboard — await submit before fetching so new score appears immediately
+  submitScore().then(() => loadLeaderboard());
 }
 
 /* ═══════════════════════════════════════════════════════════
