@@ -212,9 +212,48 @@ canvas{display:block;width:100%;height:100%}
 /* Coach's notes */
 #advice{background:#0d1117;border-left:3px solid #58a6ff;border-radius:6px;padding:10px 12px;margin-top:10px;text-align:left}
 
-/* Play again */
-.pa{background:#58a6ff;color:#000;border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;display:block;width:100%;margin-top:14px}
-.pa:hover{opacity:.9}
+/* ─── USERNAME ROW (setup) ─── */
+.uname-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 12px;background:#0d1117;border:1px solid #30363d;border-radius:8px}
+.uname-row label{font-size:11px;color:#8b949e;white-space:nowrap;flex-shrink:0}
+.uname-row input{flex:1;background:none;border:none;color:#e6edf3;font-size:13px;outline:none;font-family:inherit;min-width:0}
+.uname-row input::placeholder{color:#444}
+
+/* ─── END SCREEN: SIMPLIFIED ─── */
+.end-hero{text-align:center;padding:10px 0 6px}
+.end-hero .grade-big{line-height:1;margin-bottom:2px}
+.end-user-lbl{font-size:12px;color:#8b949e;margin-bottom:3px}
+.end-meta-lbl{font-size:10px;color:#555;letter-spacing:.3px}
+.end-returns{background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.end-ret-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.end-ret-you{font-size:26px;font-weight:800;font-family:monospace}
+.end-ret-spy{font-size:12px;color:#8b949e}
+.end-ret-row{display:flex;justify-content:space-between;font-size:11px;color:#8b949e;padding-top:6px;border-top:1px solid #21262d}
+.end-ret-row b{color:#e6edf3;font-weight:600}
+/* Achievement pills */
+.ach-pills-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;min-height:8px}
+.ach-pill{display:flex;align-items:center;gap:5px;padding:4px 10px 4px 7px;border-radius:20px;font-size:11px;border:1px solid #21262d;color:#555}
+.ach-pill.earned{border-color:#e3b341;color:#e3b341;background:rgba(227,179,65,.08)}
+/* Leaderboard */
+#lb-section{margin-bottom:12px}
+.lb-table{width:100%;border-collapse:collapse;font-size:11px}
+.lb-table th{color:#555;font-weight:400;padding:4px 6px;border-bottom:1px solid #21262d;text-align:left}
+.lb-table td{padding:5px 6px;border-bottom:1px solid #161b22;color:#8b949e;vertical-align:middle}
+.lb-me td{color:#58a6ff !important;background:rgba(88,166,255,.05)}
+.lb-grade{font-weight:700;font-size:13px}
+.lb-rank{color:#555;width:22px;text-align:right;padding-right:10px !important}
+.lb-name{font-weight:600;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* End actions */
+.end-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.end-btn{padding:10px 8px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid #30363d;background:none;color:#8b949e;transition:all .15s}
+.end-btn:hover{border-color:#58a6ff;color:#58a6ff}
+.end-btn.primary{background:#3fb950;border-color:#3fb950;color:#000}
+.end-btn.primary:hover{opacity:.9}
+/* Collapsible details */
+details.end-details{margin:10px 0}
+details.end-details>summary{font-size:11px;color:#555;cursor:pointer;padding:6px 0;list-style:none;display:flex;align-items:center;gap:5px;user-select:none}
+details.end-details>summary::-webkit-details-marker{display:none}
+details.end-details>summary::before{content:'▶';font-size:8px;transition:transform .15s;display:inline-block}
+details.end-details[open]>summary::before{transform:rotate(90deg)}
 
 /* ─── TOAST ─────────────────────────────── */
 #toast{position:fixed;top:46px;left:50%;transform:translateX(-50%);background:#161b22;border:1px solid #30363d;border-radius:6px;padding:6px 14px;font-size:11px;z-index:50;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;max-width:90vw}
@@ -427,6 +466,13 @@ kbd{background:#1c2128;border:1px solid #30363d;border-radius:3px;padding:1px 4p
       <div class="stat-cell"><div class="stat-lbl">🎮 Games</div><div class="stat-val" id="st-games">0</div></div>
     </div>
 
+    <!-- Username -->
+    <div class="uname-row">
+      <label for="username-input">Player</label>
+      <input type="text" id="username-input" placeholder="Enter your name" maxlength="20" autocomplete="off"
+             oninput="localStorage.setItem('cm_username',this.value.trim())">
+    </div>
+
     <!-- Daily Challenge button -->
     <div id="daily-btn" class="daily-btn" onclick="startDaily()">
       <div class="daily-icon">⭐</div>
@@ -476,76 +522,134 @@ kbd{background:#1c2128;border:1px solid #30363d;border-radius:3px;padding:1px 4p
 <!-- ═══ END SCREEN ═══════════════════════════════════════ -->
 <div id="endscr">
   <div class="ec">
-    <div class="ee" id="eemoji">🏆</div>
-    <div class="et" id="etitle">Game Over</div>
-    <div class="er" id="ereveal"></div>
 
-    <div id="grade"></div>
-    <div id="riskstats"></div>
-    <canvas id="eqcurve"></canvas>
-
-    <div class="sec-title">📊 Buy &amp; Hold Rankings — 1-year play window</div>
-    <div id="rank-list"></div>
-
-    <div class="sec-title">🎯 Your Trading Activity Per Stock</div>
-    <table class="tstable" id="trade-stats-grid">
-      <thead>
-        <tr>
-          <th>Stock</th><th>Trades</th>
-          <th class="c">Buys</th><th class="c">Sells</th>
-          <th class="c">B&H Rank</th><th class="c">Time Exposed</th>
-          <th class="r">Realised P&L</th>
-        </tr>
-      </thead>
-      <tbody id="trade-stats-body"></tbody>
-    </table>
-
-    <div class="sec-title">⚔️ Your Portfolio vs Best B&amp;H</div>
-    <div class="vs-block">
-      <div class="vs-row">
-        <div class="vs-name">🎮 Your portfolio</div>
-        <div class="vs-bar-wrap"><div class="vs-bar" id="vs-you-bar"  style="width:0%"></div></div>
-        <div class="vs-val" id="vs-you-val"></div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-name" id="vs-best-lbl">📦 Best B&H</div>
-        <div class="vs-bar-wrap"><div class="vs-bar" id="vs-best-bar" style="width:0%"></div></div>
-        <div class="vs-val" id="vs-best-val"></div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-name" id="vs-avg-lbl">📊 Avg B&H</div>
-        <div class="vs-bar-wrap"><div class="vs-bar" id="vs-avg-bar"  style="width:0%"></div></div>
-        <div class="vs-val" id="vs-avg-val"></div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-name">🏦 SPY B&H</div>
-        <div class="vs-bar-wrap"><div class="vs-bar" id="vs-spy-bar"  style="width:0%"></div></div>
-        <div class="vs-val" id="vs-spy-val"></div>
-      </div>
+    <!-- HERO: username + grade -->
+    <div class="end-hero">
+      <div class="end-user-lbl" id="end-user-display"></div>
+      <div id="grade"></div>
+      <div class="end-meta-lbl" id="end-meta"></div>
     </div>
 
-    <div class="eg" id="egrid"></div>
+    <!-- RETURNS SUMMARY -->
+    <div class="end-returns" id="end-returns"></div>
 
-    <!-- Achievements (new) -->
-    <div class="sec-title" id="ach-title" style="display:none">🏅 Achievements Unlocked</div>
-    <div class="ach-grid" id="ach-grid"></div>
+    <!-- EQUITY CURVE (compact) -->
+    <canvas id="eqcurve" style="width:100%;height:76px;display:block;border-radius:6px;margin-bottom:10px"></canvas>
 
-    <div id="advice"></div>
+    <!-- ACHIEVEMENT PILLS -->
+    <div class="ach-pills-row" id="ach-grid"></div>
 
-    <!-- Export / Share (new) -->
-    <div class="export-row">
-      <button class="xbtn primary" onclick="downloadShareCard()">📸 Share Card</button>
-      <button class="xbtn"         onclick="copyResult()">📋 Copy Result</button>
-      <button class="xbtn"         onclick="exportCSV()">⬇ CSV Trades</button>
+    <!-- LEADERBOARD -->
+    <div id="lb-section" style="display:none">
+      <div class="sec-title" style="margin-bottom:6px">🏆 Leaderboard</div>
+      <div id="lb-list"></div>
     </div>
 
-    <button class="pa" onclick="showSetup()">▶ Play Again</button>
+    <!-- ACTIONS -->
+    <div class="end-actions">
+      <button class="end-btn primary" onclick="showSetup()">▶ Play Again</button>
+      <button class="end-btn" onclick="downloadShareCard()">📸 Share Card</button>
+    </div>
+
+    <!-- COLLAPSIBLE DETAILS -->
+    <details class="end-details">
+      <summary>Show full details</summary>
+      <div style="padding-top:8px">
+        <div class="ee" id="eemoji" style="font-size:20px;margin:4px 0 2px"></div>
+        <div class="et" id="etitle" style="margin-bottom:4px"></div>
+        <div class="er" id="ereveal"></div>
+        <div id="riskstats" style="margin-top:10px"></div>
+
+        <div class="sec-title">📊 Buy &amp; Hold Rankings</div>
+        <div id="rank-list"></div>
+
+        <div class="sec-title">🎯 Trading Activity Per Stock</div>
+        <table class="tstable" id="trade-stats-grid">
+          <thead>
+            <tr>
+              <th>Stock</th><th>Trades</th>
+              <th class="c">Buys</th><th class="c">Sells</th>
+              <th class="c">B&H Rank</th><th class="c">Time Exposed</th>
+              <th class="r">Realised P&L</th>
+            </tr>
+          </thead>
+          <tbody id="trade-stats-body"></tbody>
+        </table>
+
+        <div class="sec-title">⚔️ Your Portfolio vs Best B&amp;H</div>
+        <div class="vs-block">
+          <div class="vs-row">
+            <div class="vs-name">🎮 Your portfolio</div>
+            <div class="vs-bar-wrap"><div class="vs-bar" id="vs-you-bar" style="width:0%"></div></div>
+            <div class="vs-val" id="vs-you-val"></div>
+          </div>
+          <div class="vs-row">
+            <div class="vs-name" id="vs-best-lbl">📦 Best B&H</div>
+            <div class="vs-bar-wrap"><div class="vs-bar" id="vs-best-bar" style="width:0%"></div></div>
+            <div class="vs-val" id="vs-best-val"></div>
+          </div>
+          <div class="vs-row">
+            <div class="vs-name" id="vs-avg-lbl">📊 Avg B&H</div>
+            <div class="vs-bar-wrap"><div class="vs-bar" id="vs-avg-bar" style="width:0%"></div></div>
+            <div class="vs-val" id="vs-avg-val"></div>
+          </div>
+          <div class="vs-row">
+            <div class="vs-name">🏦 SPY B&H</div>
+            <div class="vs-bar-wrap"><div class="vs-bar" id="vs-spy-bar" style="width:0%"></div></div>
+            <div class="vs-val" id="vs-spy-val"></div>
+          </div>
+        </div>
+
+        <div class="eg" id="egrid"></div>
+        <div id="advice"></div>
+      </div>
+    </details>
+
   </div>
 </div>
 
 <div id="toast"></div>
 
 <script>
+/* ═══════════════════════════════════════════════════════════
+   SECTION 0 — SOUND EFFECTS (Web Audio API, no files needed)
+   ═══════════════════════════════════════════════════════════ */
+let _ac = null;
+function _sfx(freq, dur, type='sine', vol=0.25) {
+  try {
+    if (!_ac) _ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (_ac.state === 'suspended') _ac.resume();
+    const o = _ac.createOscillator(), g = _ac.createGain();
+    o.connect(g); g.connect(_ac.destination);
+    o.frequency.value = freq; o.type = type;
+    g.gain.setValueAtTime(vol, _ac.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, _ac.currentTime + dur);
+    o.start(); o.stop(_ac.currentTime + dur);
+  } catch(e) {}
+}
+const sfxBuy      = () => { _sfx(523,.08); setTimeout(()=>_sfx(659,.12),80); };
+const sfxSellWin  = () => { _sfx(523,.08); setTimeout(()=>_sfx(659,.08),70); setTimeout(()=>_sfx(784,.15),140); };
+const sfxSellLoss = () => { _sfx(392,.1); setTimeout(()=>_sfx(330,.18),100); };
+const sfxFanfare  = () => [523,659,784,1047].forEach((f,i)=>setTimeout(()=>_sfx(f,.18,'triangle',.2),i*90));
+
+/* ═══════════════════════════════════════════════════════════
+   LEADERBOARD CONFIG (Supabase free tier)
+   Setup instructions: supabase.com → new project → SQL editor:
+     create table leaderboard (
+       id bigserial primary key,
+       username text, grade text, return_pct float,
+       spy_pct float, mode text, n_stocks int,
+       created_at timestamptz default now()
+     );
+     alter table leaderboard enable row level security;
+     create policy "pub_read"   on leaderboard for select using (true);
+     create policy "pub_insert" on leaderboard for insert with check (true);
+   Then paste your Project URL and anon key below.
+   ═══════════════════════════════════════════════════════════ */
+const SB_URL   = '';   // e.g. 'https://xxxx.supabase.co'
+const SB_KEY   = '';   // anon/public key — safe to put here
+const SB_TABLE = 'leaderboard';
+
 /* ═══════════════════════════════════════════════════════════
    SECTION 1 — CONFIG & UNIVERSE
    ═══════════════════════════════════════════════════════════ */
@@ -912,7 +1016,9 @@ async function startGame(n, opts={}) {
     gameStartTime:Date.now(),
     achievements:{diamondHands:false, paperHands:false},
     lastResult:null,
+    username: (ge('username-input')?.value||'').trim() || 'Anonymous',
   };
+  localStorage.setItem('cm_username', G.username);
 
   hide('loading');
 
@@ -973,6 +1079,8 @@ function showSetup() {
 // Page-load init
 loadManifest();
 renderSetupStats();
+// Restore saved username
+(function(){ const u=localStorage.getItem('cm_username'); if(u && ge('username-input')) ge('username-input').value=u; })();
 
 /* ═══════════════════════════════════════════════════════════
    SECTION 5 — CHART DRAWING
@@ -1300,6 +1408,7 @@ function trade(action) {
     G.tradeLog.push({stockIdx:a, action:'buy', qty, price:np, candle:G.revealed});
     addLog(lbl,'BUY',qty,np,null,col);
     toast(`[${lbl}] Bought ${qty} units @ ${np.toFixed(2)}`,'ok');
+    sfxBuy();
   } else {
     const pos = G.positions[a];
     if (qty > pos.shares) { toast(`Only holding ${pos.shares} units of ${lbl}`,'err'); return; }
@@ -1329,6 +1438,7 @@ function trade(action) {
     G.tradeLog.push({stockIdx:a, action:'sell', qty, price:np, pnl:realised, candle:G.revealed});
     addLog(lbl,'SELL',qty,np,realised,col);
     toast(`[${lbl}] Sold ${qty} | P&L: ${realised>=0?'+':'-'}$${fmt(Math.abs(realised))}`, realised>=0?'ok':'err');
+    realised >= 0 ? sfxSellWin() : sfxSellLoss();
   }
   updateHUD(); render(); updatePctLabel();
 }
@@ -1507,16 +1617,11 @@ function computeAchievements(S, bahResults, myTotal, youWin, gr) {
 }
 
 function renderAchievements(earned) {
-  const keys = Object.keys(ACH_DEF).filter(k=>earned[k]);
-  const title = ge('ach-title'), grid = ge('ach-grid');
-  if (!keys.length) { title.style.display='none'; grid.innerHTML=''; return; }
-  title.style.display='';
-  grid.innerHTML = keys.map(k=>{
-    const a=ACH_DEF[k];
-    return `<div class="ach-card earned">
-      <div class="ach-icon">${a.icon}</div>
-      <div><div class="ach-name">${a.name}</div><div class="ach-desc">${a.desc}</div></div>
-    </div>`;
+  const grid = ge('ach-grid');
+  if (!grid) return;
+  grid.innerHTML = Object.keys(ACH_DEF).map(k=>{
+    const a = ACH_DEF[k], got = !!earned[k];
+    return `<div class="ach-pill${got?' earned':''}" title="${a.desc}">${a.icon} ${a.name}</div>`;
   }).join('');
 }
 
@@ -1525,6 +1630,7 @@ function renderAchievements(earned) {
    ═══════════════════════════════════════════════════════════ */
 function endGame() {
   stopPlay();
+  sfxFanfare();
 
   const myHoldings = G.positions.reduce((s,pos,i)=>s+pos.shares*currNormPrice(i),0);
   const myTotal=G.cash+myHoldings, myPnl=myTotal-START, myPct=(myPnl/START)*100;
@@ -1554,10 +1660,23 @@ function endGame() {
   // Save persistent stats (streaks, bests)
   saveGameStats(gr.g, S.returnPct, isDailyMode);
 
-  // Grade badge
-  ge('grade').innerHTML=
-    `<div style="font-size:50px;font-weight:800;color:${gr.c};line-height:1">${gr.g}</div>`+
-    `<div style="font-size:9px;color:#8b949e;letter-spacing:.8px;margin-top:2px">RISK-ADJUSTED GRADE</div>`;
+  // Hero block
+  ge('end-user-display').textContent = G.username || 'Anonymous';
+  ge('grade').innerHTML =
+    `<div class="grade-big" style="font-size:58px;font-weight:800;color:${gr.c};line-height:1">${gr.g}</div>`;
+  const modeStr = isDailyMode ? 'Daily Challenge' : `Practice · ${N} stock${N>1?'s':''}`;
+  ge('end-meta').textContent = `${modeStr} · ${new Date().toISOString().slice(0,10)}`;
+
+  // Returns card
+  const spyLine = G.spyPct != null
+    ? `<span>vs SPY &nbsp;<b>${G.spyPct>=0?'+':''}${G.spyPct.toFixed(1)}%</b></span><span>Beat by &nbsp;<b style="color:${(myPct-G.spyPct)>=0?'#3fb950':'#f85149'}">${(myPct-G.spyPct)>=0?'+':''}${(myPct-G.spyPct).toFixed(1)}%</b></span>`
+    : '';
+  ge('end-returns').innerHTML =
+    `<div class="end-ret-top">
+       <span class="end-ret-you" style="color:${myPct>=0?'#3fb950':'#f85149'}">${myPct>=0?'+':''}${myPct.toFixed(1)}%</span>
+       <span class="end-ret-spy" style="color:#555">$${fmt(myTotal)}</span>
+     </div>
+     <div class="end-ret-row">${spyLine}</div>`;
 
   const rc=(lbl,val,col)=>
     `<div class="rst-cell"><div class="rst-lbl">${lbl}</div>`+
@@ -1683,6 +1802,10 @@ function endGame() {
 
   // Store last game result for share/export
   G.lastResult = {myTotal,myPct,bahResults,sorted,spyPct,S,gr,youWin,earned};
+
+  // Leaderboard
+  submitScore();
+  loadLeaderboard();
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1712,9 +1835,10 @@ function downloadShareCard() {
   ctx.fillText('▼ CHART MASTER', 16, 24);
 
   const today=new Date().toISOString().slice(0,10);
-  const modeStr=isDailyMode?'⭐ DAILY · '+today:'⚡ PRACTICE · '+today;
+  const playerStr = (G.username && G.username!=='Anonymous') ? G.username+' · ' : '';
+  const modeStr=isDailyMode?'DAILY · '+today:'PRACTICE · '+today;
   ctx.fillStyle=isDailyMode?'#26de81':'#8b949e'; ctx.font='10px monospace'; ctx.textAlign='right';
-  ctx.fillText(modeStr, W-16, 24);
+  ctx.fillText(playerStr+modeStr, W-16, 24);
 
   // Vertical divider
   ctx.strokeStyle='#1c2128'; ctx.lineWidth=1;
@@ -1816,6 +1940,71 @@ function copyResult() {
   navigator.clipboard.writeText(lines.join('\n'))
     .then(()=>toast('Copied to clipboard!','ok'))
     .catch(()=>toast('Copy failed — try manually','err'));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION 13 — LEADERBOARD
+   ═══════════════════════════════════════════════════════════ */
+function gradeColor(g) {
+  const m={'A+':'#f1c40f','A':'#3fb950','A-':'#3fb950','B+':'#58a6ff','B':'#58a6ff','B-':'#58a6ff','C+':'#e3b341','C':'#e3b341','C-':'#8b949e','D':'#f85149','F':'#f85149'};
+  return m[g]||'#e6edf3';
+}
+
+async function submitScore() {
+  if (!SB_URL || !SB_KEY || !G.lastResult) return;
+  const {myPct, S, gr} = G.lastResult;
+  try {
+    await fetch(`${SB_URL}/rest/v1/${SB_TABLE}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SB_KEY,
+        'Authorization': `Bearer ${SB_KEY}`,
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({
+        username:   G.username || 'Anonymous',
+        grade:      gr.g,
+        return_pct: parseFloat(myPct.toFixed(2)),
+        spy_pct:    G.spyPct != null ? parseFloat(G.spyPct.toFixed(2)) : null,
+        mode:       isDailyMode ? 'daily' : 'practice',
+        n_stocks:   N,
+      }),
+    });
+  } catch(e) {}
+}
+
+async function loadLeaderboard() {
+  if (!SB_URL || !SB_KEY) return;
+  const sec = ge('lb-section');
+  sec.style.display = 'block';
+  ge('lb-list').innerHTML = '<div style="color:#555;font-size:11px;padding:6px 0">Loading…</div>';
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/${SB_TABLE}?select=username,grade,return_pct,mode&order=return_pct.desc&limit=10`,
+      { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
+    );
+    if (!res.ok) throw new Error('lb fetch failed');
+    const rows = await res.json();
+    const me = G.username || 'Anonymous';
+    ge('lb-list').innerHTML =
+      `<table class="lb-table">
+        <thead><tr><th></th><th>Player</th><th>Grade</th><th>Return</th><th>Mode</th></tr></thead>
+        <tbody>${rows.map((r,i)=>{
+          const isMe = r.username === me;
+          const rc = r.return_pct >= 0 ? '#3fb950' : '#f85149';
+          return `<tr class="${isMe?'lb-me':''}">
+            <td class="lb-rank">${i+1}</td>
+            <td class="lb-name">${r.username}</td>
+            <td class="lb-grade" style="color:${gradeColor(r.grade)}">${r.grade}</td>
+            <td style="color:${rc}">${r.return_pct>=0?'+':''}${r.return_pct.toFixed(1)}%</td>
+            <td style="color:#555;font-size:10px">${r.mode||'—'}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>`;
+  } catch(e) {
+    ge('lb-list').innerHTML = '<div style="color:#555;font-size:11px;padding:6px 0">Leaderboard unavailable</div>';
+  }
 }
 
 // CSV trade log download
