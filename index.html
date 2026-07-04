@@ -1684,7 +1684,8 @@ function endGame() {
   // Hero block
   ge('end-user-display').textContent = G.username || 'Anonymous';
   ge('grade').innerHTML =
-    `<div class="grade-big" style="font-size:58px;font-weight:800;color:${gr.c};line-height:1">${gr.g}</div>`;
+    `<div class="grade-big" style="font-size:58px;font-weight:800;color:${gr.c};line-height:1">${gr.g}</div>
+     <div style="font-size:9px;color:#8b949e;margin-top:5px" title="Grade = return ÷ (max drawdown + 5). Smooth gains beat wild swings.">risk-adjusted: ${S.returnPct>=0?'+':''}${S.returnPct.toFixed(1)}% return / ${Math.abs(S.maxDD).toFixed(1)}% max drawdown</div>`;
   const modeStr = isDailyMode ? 'Daily Challenge' : `Practice · ${N} stock${N>1?'s':''}`;
   ge('end-meta').textContent = `${modeStr} · ${new Date().toISOString().slice(0,10)}`;
 
