@@ -46,14 +46,6 @@ canvas{display:block;width:100%;height:100%}
 .vsep{width:1px;height:18px;background:#243048;flex-shrink:0}
 #pgw{flex:1;height:5px;background:#243048;border-radius:3px;overflow:hidden;min-width:60px;position:relative}
 #pgp{height:100%;background:#3fb950;border-radius:3px;width:0%;transition:width .2s}
-.cbtn{background:none;border:1px solid #243048;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:11px;font-weight:600;color:#e6edf3;white-space:nowrap}
-.cbtn:hover{background:#1a2640}
-#pbtn{background:#22d3ee;color:#000;border-color:#22d3ee}
-#pbtn:hover{opacity:.85}
-.spd-cyc{background:none;border:1px solid #243048;border-radius:4px;padding:3px 10px;color:#e6edf3;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;min-width:34px;text-align:center}
-.spd-cyc:hover{border-color:#22d3ee;color:#22d3ee}
-.spd-cyc.fast{border-color:#e3b341;color:#e3b341}
-.spd-cyc.vfast{border-color:#f85149;color:#f85149}
 
 /* ─── PORTFOLIO BAR ─────────────────────── */
 #pbar{display:none;align-items:center;height:42px;padding:0 12px;background:#122038;border-top:1px solid #243048;flex-shrink:0}
@@ -67,8 +59,11 @@ canvas{display:block;width:100%;height:100%}
 #allocbar-wrap{display:none;padding:3px 12px 4px;background:#122038;border-top:1px solid #1a2640;flex-shrink:0}
 #allocbar{display:flex;height:6px;border-radius:4px;overflow:hidden;background:#1a2640}
 
-/* ─── TRADE BAR ─────────────────────────── */
-#tbar{display:none;align-items:center;gap:7px;padding:4px 12px;background:#122038;border-top:1px solid #243048;flex-shrink:0;min-height:38px}
+/* ─── TRADE BAR / CONTROL PAD ───────────── */
+#tbar{display:none;flex-direction:column;gap:8px;padding:7px 12px 10px;background:#122038;border-top:1px solid #243048;flex-shrink:0}
+#tbar-top{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+#tbar-stk{display:flex;gap:5px}
+#tbar-price{display:flex;flex-direction:column;gap:1px}
 .stockbtn{border:1px solid #243048;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:11px;font-weight:700;background:none;color:#8b949e;letter-spacing:.5px;transition:all .1s}
 .stockbtn.sel-A{border-color:#22d3ee;color:#22d3ee;background:rgba(88,166,255,.1)}
 .stockbtn.sel-B{border-color:#bc8cff;color:#bc8cff;background:rgba(188,140,255,.1)}
@@ -76,17 +71,32 @@ canvas{display:block;width:100%;height:100%}
 .stockbtn.sel-D{border-color:#26de81;color:#26de81;background:rgba(38,222,129,.1)}
 .cp{font-family:monospace;font-size:13px;font-weight:700;color:#e3b341;min-width:56px}
 .cp-note{font-size:9px;color:#8b949e}
-.qi{background:#0d1524;border:1px solid #243048;border-radius:4px;padding:3px 7px;color:#e6edf3;font-family:monospace;width:70px;font-size:12px;text-align:center}
-.qi:focus{outline:none;border-color:#22d3ee}
-.qp{background:#1a2640;border:1px solid #243048;border-radius:3px;padding:2px 7px;color:#8b949e;cursor:pointer;font-size:10px}
-.qp:hover{color:#e6edf3}
-.qpct{background:#1a2640;border:1px solid #e3b341;border-radius:4px;padding:4px 12px;color:#e3b341;cursor:pointer;font-size:11px;font-weight:700;transition:all .1s}
-.qpct:hover{background:#2a2510;color:#f0c040}
-.qpct.active{background:#2d1f00;border-color:#fbbf24;color:#fbbf24;box-shadow:0 0 0 1px rgba(251,191,36,.3)}
 .uni-toggle-btn{background:none;border:1px solid #2a3550;border-radius:3px;color:#5a6a7a;cursor:pointer;font-size:9px;padding:1px 6px;font-family:inherit;vertical-align:middle}
 .uni-toggle-btn:hover{color:#8b949e;border-color:#8b949e}
-.tb{border:none;border-radius:4px;padding:5px 16px;font-weight:700;cursor:pointer;font-size:11px}
-.tb:hover{opacity:.85}.tb:disabled{opacity:.3;cursor:not-allowed}
+
+/* Gameboy/Switch-style control pad: % d-pad (left) + play/speed (right), big BUY/EXIT below */
+#pad{display:flex;align-items:stretch;gap:10px}
+#pad-pct{flex:1;display:flex;flex-direction:column;gap:5px;background:#0d1524;border:1px solid #243048;border-radius:12px;padding:7px 9px}
+.pad-lbl{font-size:9px;color:#8b949e;text-transform:uppercase;letter-spacing:.6px;text-align:center}
+#pad-pct-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1}
+.qpct{background:#1a2640;border:1px solid #e3b341;border-radius:9px;padding:10px 4px;color:#e3b341;cursor:pointer;font-size:14px;font-weight:800;transition:all .1s}
+.qpct:hover{background:#2a2510;color:#f0c040}
+.qpct.active{background:#2d1f00;border-color:#fbbf24;color:#fbbf24;box-shadow:0 0 0 2px rgba(251,191,36,.35)}
+
+#pad-play{display:flex;flex-direction:column;gap:6px;justify-content:center;min-width:120px}
+.cbtn{background:none;border:1px solid #243048;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:11px;font-weight:600;color:#e6edf3;white-space:nowrap}
+.cbtn:hover{background:#1a2640}
+.pad-play-btn{border-radius:11px;padding:14px 12px;font-size:14px}
+#pbtn{background:#22d3ee;color:#000;border-color:#22d3ee}
+#pbtn:hover{opacity:.85}
+.spd-cyc{background:none;border:1px solid #243048;border-radius:9px;padding:8px 10px;color:#e6edf3;cursor:pointer;font-size:13px;font-weight:700;white-space:nowrap;text-align:center}
+.spd-cyc:hover{border-color:#22d3ee;color:#22d3ee}
+.spd-cyc.fast{border-color:#e3b341;color:#e3b341}
+.spd-cyc.vfast{border-color:#f85149;color:#f85149}
+
+#pad-actions{display:flex;gap:10px}
+.tb{flex:1;border:none;border-radius:13px;padding:15px;font-weight:800;font-size:15px;letter-spacing:.5px;cursor:pointer}
+.tb:hover{opacity:.88}.tb:disabled{opacity:.3;cursor:not-allowed}
 .buy{background:#3fb950;color:#000}.sell{background:#f85149;color:#fff}
 
 /* ─── TRADE LOG ─────────────────────────── */
@@ -294,18 +304,21 @@ kbd{background:#0d1524;border:1px solid #243048;border-radius:3px;padding:1px 5p
   .pi:last-child{margin-left:0;border-right:1px solid #243048;text-align:left}
   .plb{font-size:8px}.pv{font-size:10px}
 
-  #tbar{flex-wrap:wrap;height:auto;min-height:auto;padding:5px 8px;gap:5px;align-items:center}
-  #tbar-stk{display:flex;gap:4px;align-items:center;order:1}
+  #tbar{padding:6px 8px 8px;gap:6px}
+  #tbar-stk{gap:4px}
   .stockbtn{padding:4px 9px;font-size:10px}
-  #tbar-price{order:2;display:flex;flex-direction:column;gap:1px}
   .cp{font-size:12px;min-width:42px}
   .cp-note{font-size:8px}
-  #tbar-actions{order:3;margin-left:auto;display:flex;gap:5px;align-items:center}
-  .tb{padding:5px 9px;font-size:10px}
-  #tbar>.vsep{display:none}
-  #tbar-spacer{display:none}
-  #tbar-qty{order:4;flex-basis:100%;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
-  .qpct{padding:4px 10px;font-size:10px}
+  #tbar-top .vsep{display:none}
+  #pad{gap:6px}
+  #pad-pct{padding:5px 7px;border-radius:9px}
+  #pad-pct-grid{gap:4px}
+  .qpct{padding:8px 3px;font-size:12px;border-radius:7px}
+  #pad-play{min-width:92px;gap:4px}
+  .pad-play-btn{padding:10px 8px;font-size:12px}
+  .spd-cyc{padding:6px 8px;font-size:11px}
+  #pad-actions{gap:6px}
+  .tb{padding:12px;font-size:13px;border-radius:10px}
 
   .rank-row{grid-template-columns:20px 54px 1fr 50px 62px;gap:5px;padding:6px 7px}
   .rank-sym{font-size:10px}.rank-pct{font-size:10px}.rank-val{font-size:9px}
@@ -340,7 +353,7 @@ kbd{background:#0d1524;border:1px solid #243048;border-radius:3px;padding:1px 5p
 <div id="charts">
   <div class="ccell" id="cell0" onclick="clickCell(0)">
     <canvas id="cv0"></canvas>
-    <div class="clabel" id="lbl0" style="color:#22d3ee">STOCK A</div>
+    <div class="clabel" id="lbl0" style="color:#22d3ee">SPY</div>
     <div class="cohlc"  id="ohlc0"></div>
     <div class="zoom-hint" id="zhint0" style="display:none">⤢ Tap to unzoom</div>
     <div class="cpos-badge" id="pos0">
@@ -353,7 +366,7 @@ kbd{background:#0d1524;border:1px solid #243048;border-radius:3px;padding:1px 5p
   </div>
   <div class="ccell" id="cell1" onclick="clickCell(1)">
     <canvas id="cv1"></canvas>
-    <div class="clabel" id="lbl1" style="color:#bc8cff">STOCK B</div>
+    <div class="clabel" id="lbl1" style="color:#bc8cff">B</div>
     <div class="cohlc"  id="ohlc1"></div>
     <div class="zoom-hint" id="zhint1" style="display:none">⤢ Tap to unzoom</div>
     <div class="cpos-badge" id="pos1">
@@ -366,7 +379,7 @@ kbd{background:#0d1524;border:1px solid #243048;border-radius:3px;padding:1px 5p
   </div>
   <div class="ccell" id="cell2" onclick="clickCell(2)">
     <canvas id="cv2"></canvas>
-    <div class="clabel" id="lbl2" style="color:#ff9f43">STOCK C</div>
+    <div class="clabel" id="lbl2" style="color:#ff9f43">C</div>
     <div class="cohlc"  id="ohlc2"></div>
     <div class="zoom-hint" id="zhint2" style="display:none">⤢ Tap to unzoom</div>
     <div class="cpos-badge" id="pos2">
@@ -379,7 +392,7 @@ kbd{background:#0d1524;border:1px solid #243048;border-radius:3px;padding:1px 5p
   </div>
   <div class="ccell" id="cell3" onclick="clickCell(3)">
     <canvas id="cv3"></canvas>
-    <div class="clabel" id="lbl3" style="color:#26de81">STOCK D</div>
+    <div class="clabel" id="lbl3" style="color:#26de81">D</div>
     <div class="cohlc"  id="ohlc3"></div>
     <div class="zoom-hint" id="zhint3" style="display:none">⤢ Tap to unzoom</div>
     <div class="cpos-badge" id="pos3">
@@ -401,9 +414,6 @@ kbd{background:#0d1524;border:1px solid #243048;border-radius:3px;padding:1px 5p
   <button class="sb" id="b-vol" onclick="toggleVol()">VOL</button>
   <div class="vsep"></div>
   <div id="pgw"><div id="pgp"></div></div>
-  <div class="vsep"></div>
-  <button class="cbtn" id="pbtn" onclick="togglePlay()">▶▶ Play</button>
-  <button class="spd-cyc" id="spdbtn" onclick="cycleSpeed()">1×</button>
 </div>
 
 <!-- ═══ PORTFOLIO BAR ════════════════════════════════════ -->
@@ -416,31 +426,39 @@ kbd{background:#0d1524;border:1px solid #243048;border-radius:3px;padding:1px 5p
 </div>
 <div id="allocbar-wrap"><div id="allocbar"></div></div>
 
-<!-- ═══ TRADE BAR ════════════════════════════════════════ -->
+<!-- ═══ TRADE BAR / CONTROL PAD ══════════════════════════ -->
 <div id="tbar">
-  <div id="tbar-stk">
-    <button class="stockbtn sel-A" id="stk0" onclick="setActive(0)">A</button>
-    <button class="stockbtn"       id="stk1" onclick="setActive(1)">B</button>
-    <button class="stockbtn"       id="stk2" onclick="setActive(2)">C</button>
-    <button class="stockbtn"       id="stk3" onclick="setActive(3)">D</button>
-  </div>
-  <div class="vsep"></div>
-  <div id="tbar-price" style="display:flex;flex-direction:column;gap:1px">
-    <div style="display:flex;align-items:baseline;gap:5px">
+  <div id="tbar-top">
+    <div id="tbar-stk">
+      <button class="stockbtn sel-A" id="stk0" onclick="setActive(0)">SPY</button>
+      <button class="stockbtn"       id="stk1" onclick="setActive(1)">B</button>
+      <button class="stockbtn"       id="stk2" onclick="setActive(2)">C</button>
+      <button class="stockbtn"       id="stk3" onclick="setActive(3)">D</button>
+    </div>
+    <div class="vsep" id="tbar-top-vsep"></div>
+    <div id="tbar-price">
       <span class="cp" id="cprice">—</span>
       <span class="cp-note">(normalised)</span>
     </div>
   </div>
-  <div class="vsep"></div>
-  <div id="tbar-qty" style="display:flex;align-items:center;gap:5px">
-    <span style="font-size:9px;color:#8b949e" id="pct-lbl" title="BUY: % of cash · EXIT: % of position">Size:</span>
-    <button class="qpct" onclick="setQpct(25)">25%</button>
-    <button class="qpct" onclick="setQpct(50)">50%</button>
-    <button class="qpct" onclick="setQpct(75)">75%</button>
-    <button class="qpct" onclick="setQpct(100)">100%</button>
+
+  <div id="pad">
+    <div id="pad-pct">
+      <div class="pad-lbl" id="pct-lbl" title="BUY: % of cash · EXIT: % of position">SIZE</div>
+      <div id="pad-pct-grid">
+        <button class="qpct" onclick="setQpct(25)">25%</button>
+        <button class="qpct" onclick="setQpct(50)">50%</button>
+        <button class="qpct" onclick="setQpct(75)">75%</button>
+        <button class="qpct" onclick="setQpct(100)">100%</button>
+      </div>
+    </div>
+    <div id="pad-play">
+      <button class="cbtn pad-play-btn" id="pbtn" onclick="togglePlay()">▶▶ Play</button>
+      <button class="spd-cyc" id="spdbtn" onclick="cycleSpeed()">1×</button>
+    </div>
   </div>
-  <div id="tbar-spacer" style="flex:1"></div>
-  <div id="tbar-actions">
+
+  <div id="pad-actions">
     <button class="tb buy"  id="buybtn"  onclick="trade('buy')">BUY ▲</button>
     <button class="tb sell" id="sellbtn" onclick="trade('sell')" disabled>EXIT ▼</button>
   </div>
@@ -495,15 +513,15 @@ kbd{background:#0d1524;border:1px solid #243048;border-radius:3px;padding:1px 5p
     <div class="mode-cards">
       <div class="mode-card" onclick="startGame(1)">
         <div class="mode-icon">📈</div>
-        <div><div class="mode-title">1 Stock — Beginner</div><div class="mode-desc">Focus purely on timing one chart</div></div>
+        <div><div class="mode-title">SPY Only — Beginner</div><div class="mode-desc">Trade SPY, beat your own buy &amp; hold</div></div>
       </div>
       <div class="mode-card" onclick="startGame(2)">
-        <div class="mode-icon">📊</div>
-        <div><div class="mode-title">2 Stocks — Intermediate</div><div class="mode-desc">Compare two charts, pick the stronger</div></div>
+        <div class="mode-icon">⚔️</div>
+        <div><div class="mode-title">SPY + 1 — Intermediate</div><div class="mode-desc">Rotate between SPY and one challenger stock</div></div>
       </div>
       <div class="mode-card" onclick="startGame(4)">
         <div class="mode-icon">🔲</div>
-        <div><div class="mode-title">4 Stocks — Advanced</div><div class="mode-desc">Full comparative analysis across all four</div></div>
+        <div><div class="mode-title">SPY + 3 — Advanced</div><div class="mode-desc">Rotate between SPY and three challenger stocks</div></div>
       </div>
     </div>
 
@@ -967,30 +985,28 @@ async function startGame(n, opts={}) {
 
   hide('setup'); show('loading','flex');
 
-  // Pick tickers with seeded or random shuffle
-  const pool = availableTickers.filter(s=>s!=='SPY'); // SPY reserved for benchmark
+  // Slot 0 is always SPY (tradable benchmark); remaining N-1 slots are random
+  const pool = availableTickers.filter(s=>s!=='SPY');
   const prng = seed!=null ? mulberry32(seed) : ()=>Math.random();
   const shuffled = seededShuffle(pool, prng);
-  const syms = shuffled.slice(0,N);
+  const syms = ['SPY', ...shuffled.slice(0,N-1)];
 
   ge('ltxt').textContent=`Loading ${N} ticker${N>1?'s':''}…`;
   let loaded=0;
 
-  // Fetch game tickers + SPY benchmark in parallel
-  const [datasets, spyData] = await Promise.all([
-    Promise.all(syms.map(async sym=>{
-      const d=await fetchOne(sym);
-      loaded++; ge('lsub').textContent=`${loaded}/${N} loaded`;
-      return d;
-    })),
-    fetchOne('SPY'),
-  ]);
+  const datasets = await Promise.all(syms.map(async sym=>{
+    const d=await fetchOne(sym);
+    loaded++; ge('lsub').textContent=`${loaded}/${N} loaded`;
+    return d;
+  }));
 
-  // If any ticker failed, try to substitute
-  for (let i=0;i<N;i++){
+  if (!datasets[0]) { toast('SPY data unavailable — run fetch_data.py.','err'); hide('loading'); show('setup','flex'); return; }
+
+  // If a non-SPY ticker failed, try to substitute
+  for (let i=1;i<N;i++){
     if (!datasets[i]) {
       toast(`${syms[i]} unavailable, substituting…`,'info');
-      const alt=shuffled.slice(N).find(s=>s!=='SPY');
+      const alt=shuffled.slice(N-1).find(s=>!syms.includes(s));
       if (alt) { datasets[i]=await fetchOne(alt); syms[i]=alt; }
       if (!datasets[i]) { toast('Not enough data. Run fetch_data.py first.','err'); hide('loading'); show('setup','flex'); return; }
     }
@@ -1004,16 +1020,9 @@ async function startGame(n, opts={}) {
   const winRng = seed!=null ? mulberry32(seed+1) : Math.random.bind(Math);
   const winStart = minStart + Math.floor(winRng()*(maxStart-minStart));
 
-  // SPY return for play window
-  let spyPct=null;
-  if (spyData && spyData.length>=2) {
-    const playStart=datasets[0][winStart+CTX].time;
-    const playEnd  =datasets[0][winStart+TOTAL-1].time;
-    let si=-1, ei=-1;
-    for(let i=0;i<spyData.length;i++)      { if(spyData[i].time>=playStart){si=i;break;} }
-    for(let i=spyData.length-1;i>=0;i--)   { if(spyData[i].time<=playEnd)  {ei=i;break;} }
-    if(si>=0&&ei>si) spyPct=(spyData[ei].close-spyData[si].open)/spyData[si].open*100;
-  }
+  // SPY buy-and-hold return for the play window (slot 0 is always SPY)
+  const spyOpen=datasets[0][winStart+CTX].open, spyClose=datasets[0][winStart+TOTAL-1].close;
+  const spyPct=(spyClose-spyOpen)/spyOpen*100;
 
   G={
     stocks: syms.map((sym,i)=>{
@@ -1052,6 +1061,7 @@ async function startGame(n, opts={}) {
     ge('stk'+i).style.display  = i<N?'':'none';
   }
   ge('tbar-stk').style.display = N===1?'none':'flex';
+  ge('tbar-top-vsep').style.display = N===1?'none':'block';
   G.zoomed=null;
   document.querySelectorAll('.zoom-hint').forEach(h=>h.style.display='none');
   document.querySelectorAll('.ccell').forEach(c=>c.classList.remove('zoom-active'));
