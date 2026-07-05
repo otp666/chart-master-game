@@ -693,6 +693,7 @@ const SB_TABLE = 'leaderboard';
 const CTX      = 252;   // context candles (1 year shown dimmed)
 const PLAY     = 252;   // play-window candles (1 year, revealed one by one)
 const TOTAL    = CTX + PLAY;
+const CHART_LOOKBACK = 63; // max candles visible on-screen at once (~3mo); older ones slide off
 const START    = 1_000_000;
 const LABELS   = ['A','B','C','D'];
 const COLORS   = ['#22d3ee','#bc8cff','#ff9f43','#26de81'];
@@ -1117,6 +1118,12 @@ renderSetupStats();
 /* ═══════════════════════════════════════════════════════════
    SECTION 5 — CHART DRAWING
    ═══════════════════════════════════════════════════════════ */
+// Sliding visible window: at most CHART_LOOKBACK candles on screen, scrolling as G.revealed grows
+function visWin() {
+  const n = G.revealed, off = Math.max(0, n - CHART_LOOKBACK);
+  return {n, off, vis: n-off};
+}
+
 function drawOne(idx) {
   const cv   = ge('cv' + idx);
   const cell = ge('cell' + idx);
@@ -1129,8 +1136,8 @@ function drawOne(idx) {
   if (!G.stocks || G.revealed < 1) return;
 
   const st    = G.stocks[idx];
-  const n     = G.revealed;
-  const slice = st.allData.slice(st.winStart, st.winStart + n).map(d => normCandle(idx, d));
+  const {n, off, vis} = visWin();
+  const slice = st.allData.slice(st.winStart + off, st.winStart + n).map(d => normCandle(idx, d));
 
   const volPaneH = G.volOn ? Math.max(28, Math.round(cH * 0.22)) : 0;
   const volSep   = G.volOn ? 5 : 0;
@@ -1140,12 +1147,12 @@ function drawOne(idx) {
   slice.forEach(d => { lo=Math.min(lo,d.low); hi=Math.max(hi,d.high); });
   [20,50,200].forEach(p => {
     if (!G.smaOn[p]) return;
-    smaPoints(idx, p, n).forEach(pt => { lo=Math.min(lo,pt.v); hi=Math.max(hi,pt.v); });
+    smaPoints(idx, p, off, n).forEach(pt => { lo=Math.min(lo,pt.v); hi=Math.max(hi,pt.v); });
   });
   const rng = (hi-lo) || 1; lo -= rng*.06; hi += rng*.06;
 
   const toY = v => PAD.top + candleH * (1-(v-lo)/(hi-lo));
-  const toX = i => PAD.left + (i+.5) * (cW/n);
+  const toX = i => PAD.left + (i+.5) * (cW/vis);
 
   // Grid
   ctx.font = '9px monospace'; ctx.textAlign = 'left';
@@ -1157,9 +1164,9 @@ function drawOne(idx) {
     ctx.fillText(pv.toFixed(1), W-PAD.right+3, y+3);
   }
 
-  // Play-start divider
-  if (n > CTX) {
-    const dx = toX(CTX - .5);
+  // Play-start divider (only if the context/play boundary is still on screen)
+  if (n > CTX && CTX > off) {
+    const dx = toX(CTX - off - .5);
     ctx.setLineDash([3,3]); ctx.strokeStyle='#e3b341'; ctx.lineWidth=0.7;
     ctx.beginPath(); ctx.moveTo(dx,PAD.top); ctx.lineTo(dx,PAD.top+candleH); ctx.stroke();
     ctx.setLineDash([]);
@@ -1168,7 +1175,7 @@ function drawOne(idx) {
   // SMAs
   [20,50,200].forEach(p => {
     if (!G.smaOn[p]) return;
-    const pts = smaPoints(idx, p, n);
+    const pts = smaPoints(idx, p, off, n);
     if (pts.length < 2) return;
     ctx.beginPath(); ctx.strokeStyle=SMA_COLS[p]; ctx.lineWidth=1.2;
     pts.forEach((pt,j) => j===0 ? ctx.moveTo(toX(pt.i),toY(pt.v)) : ctx.lineTo(toX(pt.i),toY(pt.v)));
@@ -1177,13 +1184,13 @@ function drawOne(idx) {
 
   // Volume pane
   if (G.volOn && volPaneH > 0) {
-    const vols  = st.allData.slice(st.winStart, st.winStart+n).map(d => d.volume||0);
+    const vols  = st.allData.slice(st.winStart+off, st.winStart+n).map(d => d.volume||0);
     const vMax  = Math.max(...vols, 1);
     if (vMax > 1) {
       const vTop  = PAD.top + candleH + volSep;
       const vBot  = H - PAD.bot;
       const vBand = vBot - vTop;
-      const vcw   = Math.max(.6, (cW/n) * .65);
+      const vcw   = Math.max(.6, (cW/vis) * .65);
       ctx.strokeStyle='#243048'; ctx.lineWidth=0.5;
       ctx.beginPath(); ctx.moveTo(PAD.left,vTop-1); ctx.lineTo(W-PAD.right,vTop-1); ctx.stroke();
       slice.forEach((d,i) => {
@@ -1196,12 +1203,12 @@ function drawOne(idx) {
   }
 
   // Candles
-  const rawCw = (cW/n)*.65, cw = Math.max(.6, rawCw);
+  const rawCw = (cW/vis)*.65, cw = Math.max(.6, rawCw);
   slice.forEach((d,i) => {
     const x=toX(i), up=d.close>=d.open;
     const col    = up ? '#3fb950' : '#f85149';
     const dimCol = up ? '#2a6b3a' : '#6b2a2a';
-    const isPlay = i >= CTX;
+    const isPlay = (off+i) >= CTX;
     ctx.strokeStyle=isPlay?col:dimCol; ctx.lineWidth=Math.max(0.8,rawCw*.35);
     ctx.beginPath(); ctx.moveTo(x,toY(d.high)); ctx.lineTo(x,toY(d.low)); ctx.stroke();
     const bT=Math.min(toY(d.open),toY(d.close));
@@ -1213,13 +1220,13 @@ function drawOne(idx) {
 
 function drawAll() { for (let i=0; i<N; i++) drawOne(i); }
 
-function smaPoints(stockIdx, period, upTo) {
+function smaPoints(stockIdx, period, from, upTo) {
   const pts=[], st=G.stocks[stockIdx];
-  for (let i=0; i<upTo; i++) {
+  for (let i=from; i<upTo; i++) {
     const abs = st.winStart+i;
     if (abs < period-1) continue;
     let s=0; for (let j=abs-period+1; j<=abs; j++) s+=st.allData[j].close;
-    pts.push({i, v: +(s/period/st.normFactor).toFixed(4)});
+    pts.push({i: i-from, v: +(s/period/st.normFactor).toFixed(4)});
   }
   return pts;
 }
@@ -1254,7 +1261,9 @@ function setupHover() {
       const r=cv.getBoundingClientRect(), mx=e.clientX-r.left;
       const cW=cv.width-PAD.left-PAD.right;
       if (mx<PAD.left || mx>cv.width-PAD.right) { bar.style.display='none'; return; }
-      const ci = Math.min(G.revealed-1, Math.floor((mx-PAD.left)/(cW/G.revealed)));
+      const {off, vis} = visWin();
+      const li = Math.min(vis-1, Math.floor((mx-PAD.left)/(cW/vis)));
+      const ci = off+li;
       const d  = normCandle(idx, G.stocks[idx].allData[G.stocks[idx].winStart+ci]);
       if (!d) { bar.style.display='none'; return; }
       const up = d.close >= d.open;
