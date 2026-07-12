@@ -1,0 +1,20 @@
+name: Keep Supabase project alive
+
+on:
+  schedule:
+    # 03:00 UTC every Monday and Thursday — well under Supabase's 7-day inactivity pause
+    - cron: '0 3 * * 1,4'
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read one row from leaderboard
+        run: |
+          curl -sS -o /dev/null -w "HTTP %{http_code}\n" \
+            "https://rmuplpyijwgkjtutoqhm.supabase.co/rest/v1/leaderboard?select=id&limit=1" \
+            -H "apikey: ${SB_KEY}" \
+            -H "Authorization: Bearer ${SB_KEY}"
+        env:
+          SB_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
